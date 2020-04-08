@@ -28,4 +28,19 @@ export class LandingComponent implements OnInit {
     console.log('age:' + this.dataForm.get('age').value);
 
   }
+
+  public onSubmit() {
+    
+    console.log("submited");
+    
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
+  }
 }

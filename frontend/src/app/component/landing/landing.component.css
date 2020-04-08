@@ -5,10 +5,31 @@
     margin-left: auto;
     margin-right: auto;
     margin-top : 15%;
-    width: 70%;
+    width: 45%;
     height: 80%;
     background-color: white;
     padding: 5%;
     color: black;
     text-align: center;
 }
+
+.button {
+    margin-left: 0.5px ;
+    margin-right: 0.5px ;
+    width: 20%;
+    height: 25px;
+    background-color: darkcyan;
+    color: black;
+    font-size:15px;
+    text-align: center;
+}
+
+.example-radio-group {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+  .example-radio-button {
+    margin: 5px;
+  }
