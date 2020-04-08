@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
+  Gender: string;
+  gender: string[] = ['Male', 'Female'];
+
   constructor() { }
 
   ngOnInit(): void {
