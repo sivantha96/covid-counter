@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./figure.component.css']
 })
 export class FigureComponent implements OnInit {
-  showMan:boolean = false
+  showMan:boolean = true
   constructor() { }
 
   ngOnInit(): void {

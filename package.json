@@ -1,0 +1,19 @@
+{
+  "name": "covid-counter",
+  "version": "1.0.0",
+  "description": "Web app to get the symptoms details through the internet",
+  "main": "index.js",
+  "scripts": {
+    "devFront": "cd frontend && ng serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sivantha96/covid-counter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sivantha96/covid-counter/issues"
+  },
+  "homepage": "https://github.com/sivantha96/covid-counter#readme"
+}

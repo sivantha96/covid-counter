@@ -2,7 +2,10 @@
     <div class="row vh-100">
         <div class="col h-100">
             <ng-container *ngIf="showMan">
-                <img class="img-fluid m-auto d-block" src="../../../assets/man.jpg">
+                <img class="m-auto d-block" src="../../../assets/man.jpg" usemap="#myMap" alt>
+                <map name="myMap">
+                    <area target="_blank" alt="Button" title="Button" href="#" coords="315,310,286,353,274,387,272,428,296,494,317,517,352,527,397,539,446,529,475,519,516,486,540,459,532,410,536,344,505,305,464,281,423,267,401,267,378,273,358,283,339,285" shape="poly">
+                </map>
             </ng-container>
             <ng-container *ngIf="!showMan">
                 <img class="img-fluid m-auto d-block" src="../../../assets/woman.jpg">
