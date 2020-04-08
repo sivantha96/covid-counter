@@ -3,18 +3,18 @@
         <mat-card-title>COVID-19</mat-card-title>
         <mat-card-subtitle>Fill All the Details</mat-card-subtitle>
         <mat-card-content>
-            <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()">
-                <mat-radio-group aria-labelledby="example-radio-group-label" [(ngModel)]="Gender">
+            <form>
+                <mat-radio-group aria-labelledby="example-radio-group-label">
                     <mat-radio-button *ngFor="let i of gender" [value]="i">
                         {{i}}
                     </mat-radio-button>
                 </mat-radio-group>
-
+                <br>
                 <mat-form-field>
                     <mat-label>Enter Age</mat-label>
-                    <input matInput placeholder="Age" required formControlName="age">
+                    <input matInput placeholder="Age" required >
                 </mat-form-field>
             </form>
         </mat-card-content>
     </mat-card>
-</div>cd
+</div>
