@@ -11,6 +11,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatButtonModule,
     MatRadioModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ReactiveFormsModule
   
   ],
   providers: [],
