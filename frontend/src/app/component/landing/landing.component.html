@@ -1,20 +1,152 @@
-<div>
-    <mat-card class="center">
-        <mat-card-title>COVID-19</mat-card-title>
-        <mat-card-subtitle>Fill All the Details</mat-card-subtitle>
-        <mat-card-content>
-            <form [formGroup] = "dataForm" (ngSubmit)="onFormSubmit()">
-                <mat-radio-group aria-labelledby="example-radio-group-label"formControlName="gender">
-                    <mat-radio-button *ngFor="let i of gender" [value]="i" >
-                        {{i}}
-                    </mat-radio-button>
-                </mat-radio-group>
-                <br>
-                <mat-form-field>
-                    <mat-label>Enter Age</mat-label>
-                    <input matInput placeholder="Age" required formControlName="age">
-                </mat-form-field>
-            </form>
-        </mat-card-content>
-    </mat-card>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <mat-card class="col-12 col-md-6 col-sm-6 form-container">
+
+            <div class=card-container>
+                <mat-card-title>COVID-19</mat-card-title>
+                <mat-card-subtitle>Fill all the details to continue</mat-card-subtitle>
+            </div>
+            <mat-horizontal-stepper>
+                <mat-card-content>
+                    <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()">
+
+                        <mat-step>
+                            <div formGroupName='info1'>
+
+                                
+                                <div>
+                                    <mat-form-field class=age-container>
+                                        <!-- <h5>How many family members in your family?</h5> -->
+                                        <!-- <mat-label>Number of family members in your family?</mat-label> -->
+                                        <label>How many family members in your family?</label>
+                                        <input matInput formControlName="noOfFamily" placeholder="">
+                                        <mat-hint>enter the number</mat-hint>
+                                        <!-- <input matInput placeholder="enter how many" formControlName="noOfFamily"> -->
+                                     </mat-form-field>
+                                
+                                </div>
+
+                                <div>
+                                    <mat-form-field class=age-container>
+                                        <div>
+                                            <label>Have you recently travelled overseas?</label>
+                                        </div>
+                                        
+                                            <mat-label>Select</mat-label>
+                                        
+                                        
+                                        <mat-select formControlName="youForign">
+                                            <mat-option *ngFor="let ans of forignGroups" [value]="ans.value">
+                                                {{ans.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                
+                                <div>
+                                    <mat-form-field class=age-container>
+                                        <label>Any family member recently travelled overseas?</label>
+                                        <mat-label>Select</mat-label>
+                                        <mat-select formControlName="familyForign">
+                                            
+                                            <mat-option *ngFor="let ans of forignGroups" [value]="ans.value">
+                                                {{ans.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                       
+                                    </mat-form-field>
+                                </div>
+
+                                
+                                    <div class="button-container">
+                                        <button class="btn btn-dark" mat-button matStepperNext>Next</button>
+                                    </div>
+                               
+
+                            </div>
+                        </mat-step>
+                        
+                        <mat-step>
+
+                            <div formGroupName='info2'>
+                                <div>
+                                    <label>Select your Gender</label>
+                                    <mat-radio-group class="example-radio-group" aria-labelledby="example-radio-group-label"
+                                    formControlName="gender">
+                                
+                                    <mat-radio-button class="example-radio-button" *ngFor="let i of Gender" [value]="i">
+                                    {{ i }}
+                                    </mat-radio-button>
+                                </mat-radio-group>
+                                </div>
+                                
+
+                            <mat-form-field class=age-container>
+                                <mat-label>Select your age</mat-label>
+                                <mat-select formControlName="age">
+                                    <mat-option *ngFor="let age of ageGroups" [value]="age.value">
+                                        {{age.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            </div>
+
+                            
+                            <div>
+                                <mat-card-actions class="button-container">
+                                    <button mat-button matStepperPrevious class="btn btn-dark">Previous</button>
+                                    <button class="btn btn-dark" type="submit" (click)="onFormSubmit()" mat-raised-button
+                                        >Submit</button>
+                                </mat-card-actions>
+                            </div>
+                            
+
+                        </mat-step>
+                    </form>
+                </mat-card-content>
+            </mat-horizontal-stepper>
+
+
+
+            <!-- <div>
+                <div class=card-container>
+                    <mat-card-title>COVID-19</mat-card-title>
+                    <mat-card-subtitle>Fill all the details to continue</mat-card-subtitle>
+                </div>
+                
+                <mat-card-content>
+
+                    <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()">
+
+                        <mat-radio-group class="example-radio-group" aria-labelledby="example-radio-group-label"
+                            formControlName="gender">
+                            <mat-radio-button class="example-radio-button" *ngFor="let i of Gender" [value]="i">
+                                {{ i }}
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                        <mat-form-field class=age-container>
+                            <mat-label>Select your age</mat-label>
+                            <mat-select formControlName="age">
+                                <mat-option *ngFor="let age of ageGroups" [value]="age.value">
+                                    {{age.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+
+                        <mat-card-actions>
+                            <button class="btn btn-dark btn-block" type="submit" (click)="onSubmit()" mat-raised-button
+                                >Submit</button>
+                        </mat-card-actions>
+                    </form>
+                </mat-card-content>
+
+            </div> -->
+
+        </mat-card>
+
+
+    </div>
 </div>

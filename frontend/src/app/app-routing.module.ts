@@ -4,10 +4,15 @@ import { LandingComponent } from './component/landing/landing.component';
 import { FigureComponent } from './component/figure/figure.component';
 
 
+
 const routes: Routes = [
   {
-    path: '',
+    path: 'figure',
     component: FigureComponent
+  },
+  {
+    path: 'landing',
+    component: LandingComponent
   }
 ];
 
