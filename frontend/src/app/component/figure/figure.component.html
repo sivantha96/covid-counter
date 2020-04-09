@@ -1,16 +1,37 @@
-<div class="container">
-    <div class="row vh-100">
-        <div class="col h-100">
+<div class="container" style="height: 90vh; background: url(../../../assets/white.jpg)">
+    <div class="row" style="height: 80%;">
+        <div class="col ">
             <ng-container *ngIf="showMan">
-                <img class="img-fluid m-auto d-block" src="../../../assets/man.jpg" usemap="#myMap" alt>
-                <map name="myMap">
-                    <area target="_blank" alt="Button" title="Button" href="#" coords="315,310,286,353,274,387,272,428,296,494,317,517,352,527,397,539,446,529,475,519,516,486,540,459,532,410,536,344,505,305,464,281,423,267,401,267,378,273,358,283,339,285" shape="poly">
-                </map>
+                <div>
+                    <img class="img-human m-auto d-block" src="../../../assets/man.jpg" usemap="#mapMan" alt>
+                    <map name="mapMan">
+                        <area target="_self" class="map-area" (click)="handleClick('head')" coords="234,411,235"
+                            shape="circle">
+                        <area target="_self" class="map-area" (click)="handleClick('area')" coords="248,1081,249"
+                            shape="circle">
+                        <area target="_self" class="map-area" (click)="handleClick('area')" coords="249,1764,250"
+                            shape="circle">
+                        <area target="_self" class="map-area" (click)="handleClick('area')" coords="261,2405,263"
+                            shape="circle">
+                    </map>
+                </div>
             </ng-container>
             <ng-container *ngIf="!showMan">
-                <img class="img-fluid m-auto d-block" src="../../../assets/woman.jpg">
+                <div>
+                    <img class="img-human m-auto d-block" src="../../../assets/woman.jpg" usemap="#mapWoman" alt>
+                    <map name="mapWoman">
+                        <area class="map-area" (click)="handleClick('head')" coords="248,410,247" shape="circle">
+                        <area class="map-area" (click)="handleClick('area')" coords="246,1084,247" shape="circle">
+                        <area class="map-area" (click)="handleClick('area')" coords="249,1756,248" shape="circle">
+                        <area class="map-area" (click)="handleClick('area')" coords="249,2434,249" shape="circle">
+                    </map>
+                </div>
             </ng-container>
-            <img>
+        </div>
+    </div>
+    <div class="row " style="height: 10%;">
+        <div class="col button-container">
+            <button type="Button" class="btn btn-primary btn-lg w-50">Submit</button>
         </div>
     </div>
 </div>
