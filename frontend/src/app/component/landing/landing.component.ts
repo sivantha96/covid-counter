@@ -1,5 +1,7 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+
 
 
 interface IAge {
@@ -52,7 +54,7 @@ export class LandingComponent implements OnInit {
     
   })
 
-  constructor() { }
+  constructor(private router:Router, activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -63,6 +65,9 @@ export class LandingComponent implements OnInit {
     postData.info1=Object.assign({}, this.dataForm.value.info1)
       // console.log('gender:' + this.dataForm.get('gender').value);
       // console.log('age:' + this.dataForm.get('age').value);
+      this.router.navigate(['./figure'],{queryParams:{
+        postData:postData
+      }})
 
   }
 

@@ -59,3 +59,8 @@
     padding-top: 2%;
     padding-bottom: 4%;
   }
+
+  .button-container{
+    display: flex;
+    justify-content: space-between;
+  }
