@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 
+interface IAge {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-landing',
@@ -10,8 +14,12 @@ import { FormGroup } from '@angular/forms';
 })
 export class LandingComponent implements OnInit {
 
-  Gender: string;
-  gender: string[] = ['Male', 'Female'];
+  
+  Gender: string[] = ['Male', 'Female'];
+  ageGroups:IAge[]=[
+  {value: 'age-0', viewValue: 'younger than 40'},
+  {value: 'age-1', viewValue: 'between 40-60'},
+  {value: 'age-2', viewValue: 'older than 60'}]
 
   dataForm = new FormGroup({
     gender: new FormControl('', Validators.required),

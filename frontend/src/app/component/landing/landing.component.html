@@ -1,25 +1,48 @@
-<div>
-    <mat-card class="center">
-        <mat-card-title>COVID-19</mat-card-title>
-        <mat-card-subtitle>Fill All the Details</mat-card-subtitle>
-        <mat-card-content>
-            <mat-radio-group class="example-radio-group" aria-labelledby="example-radio-group-label" [(ngModel)]="Gender">
-                <mat-radio-button  class="example-radio-button" *ngFor="let i of gender" [value]="i">
-                    {{ i }}
-                </mat-radio-button>
-            </mat-radio-group>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <mat-card  class="col-12 col-md-6 col-sm-6 form-container">
+            <div>
+                <div class=card-container>
+                    <mat-card-title>COVID-19</mat-card-title>
+                    <mat-card-subtitle>Fill all the details to continue</mat-card-subtitle>
+                </div>
+                
+                <mat-card-content>
 
-            <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()">
-            
-                <mat-form-field>
+                    <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()">
+
+                        <mat-radio-group class="example-radio-group" aria-labelledby="example-radio-group-label"
+                            formControlName="gender">
+                            <mat-radio-button class="example-radio-button" *ngFor="let i of Gender" [value]="i">
+                                {{ i }}
+                            </mat-radio-button>
+                        </mat-radio-group>
+
+                        <mat-form-field class=age-container>
+                            <mat-label>Select your age</mat-label>
+                            <mat-select formControlName="age">
+                                <mat-option *ngFor="let age of ageGroups" [value]="age.value">
+                                    {{age.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <!-- <mat-form-field>
                     <mat-label>Enter Age</mat-label>
                     <input matInput placeholder="Age" (keypress)="numberOnly($event)" type="text" required formControlName="age">
-                </mat-form-field>
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button class="button" type="submit" (click)="onSubmit()" mat-raised-button
-                            class="button">Submit</button>
-        </mat-card-actions>
-    </mat-card>
+                </mat-form-field> -->
+
+                        <mat-card-actions>
+                            <button class="btn btn-dark btn-block" type="submit" (click)="onSubmit()" mat-raised-button
+                                >Submit</button>
+                        </mat-card-actions>
+                    </form>
+                </mat-card-content>
+
+            </div>
+
+        </mat-card >
+
+
+    </div>
 </div>
