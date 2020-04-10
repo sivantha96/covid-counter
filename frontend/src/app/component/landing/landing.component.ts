@@ -31,8 +31,8 @@ export class LandingComponent implements OnInit {
   {value: 'age-2', viewValue: 'older than 60'}]
 
   forignGroups:IForign[]=[
-    {value: true, viewValue: 'yes'},
-    {value: false, viewValue: 'no'},
+    {value: true, viewValue: 'Yes'},
+    {value: false, viewValue: 'No'},
   ]
 
   // dataForm = new FormGroup({
@@ -71,11 +71,7 @@ export class LandingComponent implements OnInit {
 
   }
 
-  public onSubmit() {
-    
-    console.log("submited");
-    
-  }
+
 
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
