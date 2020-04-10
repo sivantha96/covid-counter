@@ -50,11 +50,12 @@ export class LandingComponent implements OnInit {
   onFormSubmit(): void {
     const postData = Object.assign({}, this.dataForm.value);
     postData.info1=Object.assign({}, this.dataForm.value.info1)
-    postData.info1=Object.assign({}, this.dataForm.value.info1)
+    postData.info2=Object.assign({}, this.dataForm.value.info2)
       // console.log('gender:' + this.dataForm.get('gender').value);
       // console.log('age:' + this.dataForm.get('age').value);
+      // console.log(JSON.stringify(postData))
       this.router.navigate(['./figure'],{queryParams:{
-        postData:postData
+        postData:JSON.stringify(postData)
       }})
 
   }

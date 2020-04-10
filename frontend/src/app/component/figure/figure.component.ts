@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, Inject } from "@angular/core";
 import {
   MatDialog,
@@ -17,11 +18,18 @@ export interface DialogData {
 export class FigureComponent implements OnInit {
   showMan: boolean = false;
 
-  constructor(public dialog: MatDialog) {
+  landingData :any
+
+  constructor(public dialog: MatDialog, private router:Router, private route:ActivatedRoute) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
+    this.route.queryParams    
+    .subscribe((params) => {
+      console.log(params)
+    });
+  }
   handleClick(click) {
     console.log("clicked");
     if (click === "head") {
