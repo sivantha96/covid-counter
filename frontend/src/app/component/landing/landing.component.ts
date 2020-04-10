@@ -1,6 +1,6 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, Validators, FormGroup } from "@angular/forms";
 
 interface IAge {
   value: string;
@@ -8,44 +8,44 @@ interface IAge {
 }
 
 interface IForeign {
-  value:boolean,
+  value: boolean;
   viewValue: string;
 }
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  selector: "app-landing",
+  templateUrl: "./landing.component.html",
+  styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
-  gender: string[] = ['Male', 'Female'];
-  ageGroups:IAge[]=[
-  {value: 'age-0', viewValue: 'younger than 40'},
-  {value: 'age-1', viewValue: 'between 40-60'},
-  {value: 'age-2', viewValue: 'older than 60'}]
+  gender: string[] = ["Male", "Female"];
+  ageGroups: IAge[] = [
+    { value: "age-0", viewValue: "younger than 40" },
+    { value: "age-1", viewValue: "between 40-60" },
+    { value: "age-2", viewValue: "older than 60" },
+  ];
 
-  foreignGroups:IForeign[]=[
-    {value: true, viewValue: 'Yes'},
-    {value: false, viewValue: 'No'},
-  ]
+  foreignGroups: IForeign[] = [
+    { value: true, viewValue: "Yes" },
+    { value: false, viewValue: "No" },
+  ];
 
-  dataForm=new FormGroup({
-    info1:new FormGroup({
-      noOfFamily: new FormControl('', Validators.required),
-      youForeign: new FormControl('', Validators.required),
-      familyForeign: new FormControl('', Validators.required),
+  dataForm = new FormGroup({
+    info1: new FormGroup({
+      noOfFamily: new FormControl("", Validators.required),
+      youForeign: new FormControl("", Validators.required),
+      familyForeign: new FormControl("", Validators.required),
     }),
 
-    info2:new FormGroup({
-      gender: new FormControl('', Validators.required),
-      age: new FormControl('', Validators.required),
-    })
-  })
+    info2: new FormGroup({
+      gender: new FormControl("", Validators.required),
+      age: new FormControl("", Validators.required),
+    }),
+  });
 
-  constructor(private router:Router, activatedRoute:ActivatedRoute) { }
+  constructor(private router: Router, activatedRoute: ActivatedRoute) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onFormSubmit(): void {
     const postData = Object.assign({}, this.dataForm.value);
@@ -61,7 +61,7 @@ export class LandingComponent implements OnInit {
   }
 
   numberOnly(event): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }
