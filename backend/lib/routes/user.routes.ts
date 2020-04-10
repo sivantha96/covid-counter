@@ -3,11 +3,11 @@ import { UserController } from '../controllers/user.controller';
 
 export class UserRoutes {
 
-    private user_data_controller : UserController = new UserController();
+    private user_controller : UserController = new UserController();
 
     public route(app: Application) {
-        app.get('/users', (req: Request, res: Response) => {
-            res.status(200).send({message: "Get all users ongoing"});
+        app.post('/users/symptoms', (req: Request, res: Response) => {
+            this.user_controller.create_user_symptoms(req, res);
         })
     }
 }

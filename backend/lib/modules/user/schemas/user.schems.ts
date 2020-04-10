@@ -1,11 +1,18 @@
 import * as mongoose from 'mongoose';
-import { Gender } from 'modules/common/models/common.model';
+import { gender } from '../../common/models/common.model';
 
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    gender: Gender,
-    age: Number
+    family_members: Number,
+    is_visited_foreing_country: Boolean,
+    is_member_visited_foreing_country: Boolean,
+    age: String,
+    gender: String,
+    disease: [{
+        name: String,
+        severity: String
+    }]
 });
 
-export default mongoose.model('users', schema);
+export default mongoose.model('user_symptoms', schema);
