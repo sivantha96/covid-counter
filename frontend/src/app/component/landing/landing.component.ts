@@ -18,11 +18,14 @@ interface IForeign {
   styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
-  gender: string[] = ["Male", "Female"];
+  gender: string[] = ["Female","Male"];
   ageGroups: IAge[] = [
-    { value: "age-0", viewValue: "younger than 40" },
-    { value: "age-1", viewValue: "between 40-60" },
-    { value: "age-2", viewValue: "older than 60" },
+    { value: "age-0", viewValue: "Infant (0-5 Years)" },
+    { value: "age-1", viewValue: "child (5-18 Years)" },
+    { value: "age-3", viewValue: "Young (18-30 Years)" },
+    { value: "age-4", viewValue: "Middle Age (30-60 Years)" },
+    { value: "age-5", viewValue: "Old (Above 60 Years)" },
+   
   ];
 
   foreignGroups: IForeign[] = [
@@ -31,16 +34,13 @@ export class LandingComponent implements OnInit {
   ];
 
   dataForm = new FormGroup({
-    info1: new FormGroup({
+  
       noOfFamily: new FormControl("", Validators.required),
       youForeign: new FormControl("", Validators.required),
       familyForeign: new FormControl("", Validators.required),
-    }),
-
-    info2: new FormGroup({
       gender: new FormControl("", Validators.required),
       age: new FormControl("", Validators.required),
-    }),
+   
   });
 
   constructor(private router: Router, activatedRoute: ActivatedRoute) {}
