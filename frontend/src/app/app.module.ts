@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import {
   FigureComponent,
   FigureComponentDialog,
-  FigureComponentHeadDialog,
+  FigureComponentListDialog,
 } from "./component/figure/figure.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatRippleModule } from "@angular/material/core";
@@ -22,6 +22,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatStepperModule } from "@angular/material/stepper";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MatChipsModule } from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     LandingComponent,
     FigureComponent,
     FigureComponentDialog,
-    FigureComponentHeadDialog,
+    FigureComponentListDialog,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +49,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

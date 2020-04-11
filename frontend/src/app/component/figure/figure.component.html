@@ -5,14 +5,10 @@
                 <div>
                     <img class="img-human m-auto d-block" src="../../../assets/man.jpg" usemap="#mapMan" alt>
                     <map name="mapMan">
-                        <area target="_self" class="map-area" (click)="handleClick('head')" coords="234,411,235"
-                            shape="circle">
-                        <area target="_self" class="map-area" (click)="handleClick('area')" coords="248,1081,249"
-                            shape="circle">
-                        <area target="_self" class="map-area" (click)="handleClick('area')" coords="249,1764,250"
-                            shape="circle">
-                        <area target="_self" class="map-area" (click)="handleClick('area')" coords="261,2405,263"
-                            shape="circle">
+                        <area class="map-area" shape="circle" coords="234,411,235" (click)="handleClick('head')">
+                        <area class="map-area" shape="circle" coords="248,1081,249" (click)="handleClick('soreThroat')">
+                        <area class="map-area" shape="circle" coords="249,1764,250" (click)="handleClick('cough')">
+                        <area class="map-area" shape="circle" coords="261,2405,263" (click)="handleClick('cold')">
                     </map>
                 </div>
             </ng-container>
@@ -20,13 +16,16 @@
                 <div>
                     <img class="img-human m-auto d-block" src="../../../assets/woman.jpg" usemap="#mapWoman" alt>
                     <map name="mapWoman">
-                        <area class="map-area" (click)="handleClick('head')" coords="248,410,247" shape="circle">
-                        <area class="map-area" (click)="handleClick('area')" coords="246,1084,247" shape="circle">
-                        <area class="map-area" (click)="handleClick('area')" coords="249,1756,248" shape="circle">
-                        <area class="map-area" (click)="handleClick('area')" coords="249,2434,249" shape="circle">
+                        <area class="map-area" shape="circle" coords="248,410,247" (click)="handleClick('head')">
+                        <area class="map-area" shape="circle" coords="246,1084,247" (click)="handleClick('soreThroat')">
+                        <area class="map-area" shape="circle" coords="249,1756,248" (click)="handleClick('cough')">
+                        <area class="map-area" shape="circle" coords="249,2434,249" (click)="handleClick('cold')">
                     </map>
                 </div>
             </ng-container>
+            <script>
+                $('map').imageMapResize();
+            </script>
         </div>
     </div>
     <div class="row " style="height: 10%;">

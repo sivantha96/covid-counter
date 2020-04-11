@@ -4,7 +4,7 @@
   "description": "Web app to get the symptoms details through the internet",
   "main": "index.js",
   "scripts": {
-    "devFront": "cd frontend && ng serve --open"
+    "devFront": "cd frontend && ng serve --host 0.0.0.0 --disable-host-check --open"
   },
   "repository": {
     "type": "git",

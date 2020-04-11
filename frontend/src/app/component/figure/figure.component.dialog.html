@@ -1,27 +1,25 @@
-<mat-grid-list gutterSize="5" cols="1" rowHeight="7:1" >
-  <mat-grid-tile rowspan="3">
+<mat-grid-list gutterSize="5" cols="1" rowHeight="7:1">
+  <mat-grid-tile rowspan="2" >
     <div class="row" style="text-align: center;">
       <div class="col">
-        <img width="100%" src="../../../assets/icon.jpg">
+        <img width="100%" [src]="data.decease.imageUrl">
       </div>
     </div>
   </mat-grid-tile>
   <mat-grid-tile>
+    <div style="margin-top: 5%;">
+      <h2>How is your {{ data.decease.name }} symptoms?</h2>
+    </div>
     
   </mat-grid-tile>
-  <mat-grid-tile >
-    <button type="Button" class="btn btn-success btn-md btn-block">Submit</button>
-  </mat-grid-tile>
-  <mat-grid-tile >
-    <button type="Button" class="btn btn-warning btn-md btn-block">Submit</button>
-  </mat-grid-tile>
-  <mat-grid-tile >
-    <button type="Button" class="btn btn-danger btn-md btn-block">Submit</button>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    
+  <mat-grid-tile rowspan="4">
+    <mat-chip-list (selectionChange)="onSelectionChange($event)" class="mat-chip-list-stacked"
+      aria-orientation="vertical">
+        <mat-chip color="accent" selected="{{this.selection1}}" (focus)="onFocus(1)">No symptoms</mat-chip>
+        <mat-chip color="primary" selected="{{this.selection2}}" (focus)="onFocus(2)">Mild symptoms</mat-chip>
+        <mat-chip color="warn" selected="{{this.selection3}}" (focus)="onFocus(3)">Severe symptoms</mat-chip>
+        <div style="padding:3%"></div>
+        <mat-chip (focus)="onFocus(4)">Submit</mat-chip>
+    </mat-chip-list>
   </mat-grid-tile>
 </mat-grid-list>
-<div mat-dialog-actions>
-  <button type="Button" class="btn btn-primary btn-lg mx-auto ">Submit</button>
-</div>
