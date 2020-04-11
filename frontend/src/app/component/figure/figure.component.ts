@@ -98,7 +98,7 @@ export class FigureComponent implements OnInit {
     // Head area is clicked
     if (areaType === "head") {
       console.log(this.deceases)
-      const dialogRef = this.dialog.open(FigureComponentListDialog, {
+      const listDialogRef = this.dialog.open(FigureComponentListDialog, {
         width: "90vh",
         height: "none",
         maxHeight: "90vh",
@@ -199,19 +199,24 @@ export class FigureComponentListDialog {
 
   constructor(
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<FigureComponentListDialog>,
+    public listDialogRef: MatDialogRef<FigureComponentListDialog>,
     @Inject(MAT_DIALOG_DATA) public data: ListDialogData
   ) {}
 
-  handleClickHead(click) {
+  handleClick(area) {
     const dialogRef = this.dialog.open(FigureComponentDialog, {
       width: "90vh",
-      height: "80vh",
-      data: { clickName: click },
+      height: "none",
+      maxHeight: "90vh",
+      data: {
+        // decease: this.deceases[areaType],
+        decease: this.data.deceases[area]
+      },
+      autoFocus: false,
     });
   }
 
-  handleClick(click) {
-    console.log(click);
+  onSubmit() {
+    this.listDialogRef.close();
   }
 }

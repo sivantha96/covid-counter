@@ -1,7 +1,7 @@
 <div>
     <mat-grid-list gutterSize="5" cols="1" rowHeight="4:1">
         <mat-grid-tile *ngFor="let area of data.areas">
-            <div matRipple class="card" (click)="handleClick('1')" style="flex: 1; height: 100%; cursor: pointer; ">
+            <div matRipple class="card" (click)="handleClick(area)" style="flex: 1; height: 100%; cursor: pointer; ">
                 <div class="row" style=" background: url(../../../assets/white.jpg)">
                     <div class="col-4" style="text-align: center; padding-top: 2vmin;">
                         <img width="100%" [src]="data.deceases[area].iconUrl">
@@ -19,5 +19,5 @@
     </mat-grid-list>
 </div>
 <div mat-dialog-actions>
-    <button type="Button" class="btn btn-primary btn-lg mx-auto ">Submit</button>
+    <button type="Button" class="btn btn-primary btn-md mx-auto" (click)="onSubmit()">Submit</button>
 </div>
