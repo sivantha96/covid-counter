@@ -5,34 +5,8 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
-
-// Input data for the single page dialog
-export interface DialogData {
-  decease: {
-    name: string;
-    imageUrl: string;
-    iconUrl: string;
-    severity: number;
-  };
-}
-
-export interface ListDialogData {
-  areas: string[];
-  deceases: {};
-}
-
-// receiving data from the previous route
-export interface PostData {
-  family_members: number,
-  is_visited_foreign_country: string,
-  is_member_visited_foreign_country: string,
-  age: string,
-  gender: string,
-  deceases: {
-      name: string,
-      severity: string,
-  }[]
-}
+import { DialogData, ListDialogData, PostData } from "src/app/model/figure";
+import { UserInfoService } from "src/app/service/user-info.service";
 
 declare var $: any;
 
@@ -48,30 +22,30 @@ export class FigureComponent implements OnInit {
       name: "Cold",
       imageUrl: "../../../assets/figure/cold.jpg",
       iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0
+      severity: 0,
     },
     soreThroat: {
       name: "Sore Throat",
       imageUrl: "../../../assets/figure/sore.jpg",
       iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0
+      severity: 0,
     },
     cough: {
       name: "Cough",
       imageUrl: "../../../assets/figure/cough.jpg",
       iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0
+      severity: 0,
     },
   };
-
   postData: PostData;
-  url = "assets/js/onChangeWindow.js";
+  scriptUrl = "assets/js/onChangeWindow.js";
   showMan: boolean = true;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userInfoService: UserInfoService
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +59,7 @@ export class FigureComponent implements OnInit {
       } catch (error) {
         console.log(error);
       }
-      console.log(this.postData)
+      console.log(this.postData);
     });
 
     // setting the showMan property
@@ -112,8 +86,6 @@ export class FigureComponent implements OnInit {
         autoFocus: false,
       });
 
-      
-
       // other area is clicked
     } else {
       const dialogRef = this.dialog.open(FigureComponentDialog, {
@@ -126,13 +98,13 @@ export class FigureComponent implements OnInit {
         autoFocus: false,
       });
 
-      dialogRef.afterClosed().subscribe(data => {
+      dialogRef.afterClosed().subscribe((data) => {
         // const newPostData = {
         //   deceases: {
         //     name: data.
         //   }
         // }
-        console.log(data)
+        console.log(data);
       });
     }
   }
@@ -140,11 +112,17 @@ export class FigureComponent implements OnInit {
   // map coordinates transforming script executor
   public loadScript() {
     let node = document.createElement("script");
-    node.src = this.url;
+    node.src = this.scriptUrl;
     node.type = "text/javascript";
     node.async = true;
     node.charset = "utf-8";
     document.getElementsByTagName("head")[0].appendChild(node);
+  }
+
+  onSubmitMain() {
+    this.userInfoService.postInfo(this.postData).subscribe(res => {
+      console.log(res)
+    })
   }
 }
 
@@ -154,7 +132,6 @@ export class FigureComponent implements OnInit {
   templateUrl: "./figure.component.dialog.html",
 })
 export class FigureComponentDialog {
-
   constructor(
     public dialogRef: MatDialogRef<FigureComponentDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
@@ -163,21 +140,21 @@ export class FigureComponentDialog {
   onFocus(num) {
     switch (num) {
       case 1:
-        this.data.decease.severity = 1
+        this.data.decease.severity = 1;
         break;
 
       case 2:
-        this.data.decease.severity = 2
+        this.data.decease.severity = 2;
         break;
 
       case 3:
-        this.data.decease.severity = 3
+        this.data.decease.severity = 3;
         break;
     }
   }
 
   isSelected(chip) {
-    return (chip === this.data.decease.severity);
+    return chip === this.data.decease.severity;
   }
 }
 
