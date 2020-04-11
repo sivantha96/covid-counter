@@ -8,8 +8,16 @@ interface IAge {
 }
 
 interface IForeign {
-  value: boolean;
+  value: string;
   viewValue: string;
+}
+
+interface IPostData{
+  family_members:number,
+  is_visited_foreign_country:string,
+  is_member_visited_foreign_country:string,
+  age:string,
+  gender:string
 }
 
 @Component({
@@ -20,18 +28,20 @@ interface IForeign {
 export class LandingComponent implements OnInit {
   Gender: string;
 
+  isOptional=false;
+
   gender: string[] = ["Female", "Male"];
   ageGroups: IAge[] = [
-    { value: "age-0", viewValue: "Infant (0-5 Years)" },
-    { value: "age-1", viewValue: "child (5-18 Years)" },
-    { value: "age-3", viewValue: "Young (18-30 Years)" },
-    { value: "age-4", viewValue: "Middle Age (30-60 Years)" },
-    { value: "age-5", viewValue: "Old (Above 60 Years)" },
+    { value: "0", viewValue: "Infant (0-5 Years)" },
+    { value: "1", viewValue: "child (5-18 Years)" },
+    { value: "3", viewValue: "Young (18-30 Years)" },
+    { value: "4", viewValue: "Middle Age (30-60 Years)" },
+    { value: "5", viewValue: "Old (Above 60 Years)" },
   ];
 
   foreignGroups: IForeign[] = [
-    { value: true, viewValue: "Yes" },
-    { value: false, viewValue: "No" },
+    { value: "Yes", viewValue: "Yes" },
+    { value: "No", viewValue: "No" },
   ];
 
   dataForm = new FormGroup({
@@ -43,7 +53,8 @@ export class LandingComponent implements OnInit {
   });
 
   isGender(): boolean {
-    if (this.Gender == "Male") return true;
+    
+    if (this.dataForm.get('gender').value=='Male') return true;
     else return false;
   }
 
@@ -54,12 +65,12 @@ export class LandingComponent implements OnInit {
   onFormSubmit(): void {
     const submitData = Object.assign({}, this.dataForm.value);
 
-    let postQuery = {
+    let postQuery:IPostData = {
       gender: submitData.gender,
       age: submitData.age,
-      noOfFamily: submitData.noOfFamily,
-      youForeign: submitData.youForeign,
-      familyForeign: submitData.familyForeign,
+      family_members: submitData.noOfFamily,
+      is_visited_foreign_country: submitData.youForeign,
+      is_member_visited_foreign_country: submitData.familyForeign,
     };
 
     this.router.navigate(["./figure"], {
