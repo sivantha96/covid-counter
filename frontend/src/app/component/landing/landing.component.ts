@@ -1,11 +1,6 @@
-import { postData } from './../figure/figure.component';
-import { Gender } from './../../../../../backend/lib/modules/common/models/common.model';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
-import {ILandingdata} from './landing-data.model'
-
-
 
 interface IAge {
   value: string;
@@ -23,18 +18,15 @@ interface IForeign {
   styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
+  Gender: string;
 
-  Gender:string
-  
-
-  gender: string[] = ["Female","Male"];
+  gender: string[] = ["Female", "Male"];
   ageGroups: IAge[] = [
     { value: "age-0", viewValue: "Infant (0-5 Years)" },
     { value: "age-1", viewValue: "child (5-18 Years)" },
     { value: "age-3", viewValue: "Young (18-30 Years)" },
     { value: "age-4", viewValue: "Middle Age (30-60 Years)" },
     { value: "age-5", viewValue: "Old (Above 60 Years)" },
-   
   ];
 
   foreignGroups: IForeign[] = [
@@ -43,25 +35,17 @@ export class LandingComponent implements OnInit {
   ];
 
   dataForm = new FormGroup({
-  
-      noOfFamily: new FormControl("", Validators.required),
-      youForeign: new FormControl("", Validators.required),
-      familyForeign: new FormControl("", Validators.required),
-      gender: new FormControl("", Validators.required),
-      age: new FormControl("", Validators.required),
-   
+    noOfFamily: new FormControl("", Validators.required),
+    youForeign: new FormControl("", Validators.required),
+    familyForeign: new FormControl("", Validators.required),
+    gender: new FormControl("", Validators.required),
+    age: new FormControl("", Validators.required),
   });
 
-  isGender():boolean{
-    if(this.Gender=="Male")
-      return true
-    else
-      return false
+  isGender(): boolean {
+    if (this.Gender == "Male") return true;
+    else return false;
   }
-
- 
-  
-   
 
   constructor(private router: Router, activatedRoute: ActivatedRoute) {}
 
@@ -69,22 +53,20 @@ export class LandingComponent implements OnInit {
 
   onFormSubmit(): void {
     const submitData = Object.assign({}, this.dataForm.value);
-    
-    let postQuery={
-      gender:submitData.gender,
-      age:submitData.age,
-      noOfFamily:submitData.noOfFamily,
-      youForign:submitData.youForign,
-      familyForign:submitData.familyForign
 
-    }
-   
-     
-      
-      this.router.navigate(['./figure'],{queryParams:{
-        postData:JSON.stringify(postQuery)
-      }})
+    let postQuery = {
+      gender: submitData.gender,
+      age: submitData.age,
+      noOfFamily: submitData.noOfFamily,
+      youForeign: submitData.youForeign,
+      familyForeign: submitData.familyForeign,
+    };
 
+    this.router.navigate(["./figure"], {
+      queryParams: {
+        postData: JSON.stringify(postQuery),
+      },
+    });
   }
 
   numberOnly(event): boolean {
@@ -94,6 +76,4 @@ export class LandingComponent implements OnInit {
     }
     return true;
   }
-
-
 }

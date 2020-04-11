@@ -61,7 +61,7 @@ export class FigureComponent implements OnInit {
     },
   };
 
-  postData: PostData;
+  postData: any;
   url = "assets/js/onChangeWindow.js";
   showMan: boolean = true;
 
@@ -85,7 +85,7 @@ export class FigureComponent implements OnInit {
     });
 
     // setting the showMan property
-    const gender = this.postData.info2.gender;
+    const gender = this.postData.gender;
     if (gender === "Male") {
       this.showMan = true;
     } else {
@@ -97,7 +97,6 @@ export class FigureComponent implements OnInit {
   handleClick(areaType) {
     // Head area is clicked
     if (areaType === "head") {
-      console.log(this.deceases)
       const listDialogRef = this.dialog.open(FigureComponentListDialog, {
         width: "90vh",
         height: "none",
@@ -156,10 +155,6 @@ export class FigureComponentDialog {
 
   onPressOption(option) {
     this.userResponse = option;
-  }
-
-  onSelectionChange(event: MatChipSelectionChange) {
-    console.log(event);
   }
 
   onFocus(num) {

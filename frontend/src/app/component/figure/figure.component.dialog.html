@@ -13,7 +13,7 @@
     
   </mat-grid-tile>
   <mat-grid-tile rowspan="4">
-    <mat-chip-list (selectionChange)="onSelectionChange($event)" class="mat-chip-list-stacked"
+    <mat-chip-list class="mat-chip-list-stacked"
       aria-orientation="vertical">
         <mat-chip color="accent" selected="{{this.selection1}}" (focus)="onFocus(1)">No symptoms</mat-chip>
         <mat-chip color="primary" selected="{{this.selection2}}" (focus)="onFocus(2)">Mild symptoms</mat-chip>
