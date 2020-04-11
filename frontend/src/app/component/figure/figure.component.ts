@@ -5,7 +5,6 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
-import { MatChipSelectionChange } from "@angular/material/chips";
 
 // Input data for the single page dialog
 export interface DialogData {

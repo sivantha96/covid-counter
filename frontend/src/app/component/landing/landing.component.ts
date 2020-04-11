@@ -1,6 +1,7 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { ILandingdata } from "./landing-data.model";
 
 interface IAge {
   value: string;
@@ -54,12 +55,12 @@ export class LandingComponent implements OnInit {
   onFormSubmit(): void {
     const submitData = Object.assign({}, this.dataForm.value);
 
-    let postQuery = {
+    let postQuery: ILandingdata = {
       gender: submitData.gender,
       age: submitData.age,
-      noOfFamily: submitData.noOfFamily,
-      youForeign: submitData.youForeign,
-      familyForeign: submitData.familyForeign,
+      family_members: submitData.noOfFamily,
+      is_visited_foreign_country: submitData.youForeign.toString(),
+      is_member_visited_foreign_country: submitData.familyForeign.toString(),
     };
 
     this.router.navigate(["./figure"], {
