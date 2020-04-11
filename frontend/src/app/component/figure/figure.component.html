@@ -3,7 +3,8 @@
         <div class="col ">
             <ng-container *ngIf="showMan">
                 <div>
-                    <img class="img-human m-auto d-block" src="../../../assets/figure/man.jpg" usemap="#mapMan" alt>
+                    <img id="manImage" class="img-human m-auto d-block" src="../../../assets/figure/man.jpg"
+                        usemap="#mapMan" alt>
                     <map name="mapMan">
                         <area class="map-area" shape="circle" coords="234,411,235" (click)="handleClick('head')">
                         <area class="map-area" shape="circle" coords="248,1081,249" (click)="handleClick('soreThroat')">
@@ -24,7 +25,12 @@
                 </div>
             </ng-container>
             <script>
+                // $('img').mapster();
                 $('map').imageMapResize();
+                // $('#manImage').mapster({
+                //     fillColor: 'ff0000',
+                //     fillOpacity: 0.3
+                // });
             </script>
         </div>
     </div>

@@ -40,6 +40,7 @@ export class FigureComponent implements OnInit {
   postData: PostData;
   scriptUrl = "assets/js/onChangeWindow.js";
   showMan: boolean = true;
+  symptomsArray: string[] = ["cold", "soreThroat", "cough"];
 
   constructor(
     public dialog: MatDialog,
@@ -59,7 +60,6 @@ export class FigureComponent implements OnInit {
       } catch (error) {
         console.log(error);
       }
-      console.log(this.postData);
     });
 
     // setting the showMan property
@@ -80,10 +80,33 @@ export class FigureComponent implements OnInit {
         height: "none",
         maxHeight: "90vh",
         data: {
-          areas: ["cold", "soreThroat", "cough"],
+          areas: this.symptomsArray,
           deceases: this.deceases,
         },
         autoFocus: false,
+      });
+
+      listDialogRef.afterClosed().subscribe((data) => {
+        if (typeof data !== "undefined") {
+          this.symptomsArray.forEach((symptom) => {
+            let decease = {
+              name: data.deceases[symptom].name,
+              severity: data.deceases[symptom].severity,
+            };
+
+            const position = this.postData.deceases
+              .map(function (e) {
+                return e.name;
+              })
+              .indexOf(decease.name);
+
+            if (position === -1) {
+              this.postData.deceases.push(decease);
+            } else {
+              this.postData.deceases[position].severity = decease.severity;
+            }
+          });
+        }
       });
 
       // other area is clicked
@@ -99,23 +122,23 @@ export class FigureComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((data) => {
-        const decease = {
-          name: data.decease.name,
-          severity: data.decease.severity,
-        };
-        // console.log(decease);
-        const position = this.postData.deceases
-          .map(function (e) {
-            return e.name;
-          })
-          .indexOf(decease.name);
+        if (typeof data !== "undefined") {
+          const decease = {
+            name: data.decease.name,
+            severity: data.decease.severity,
+          };
+          const position = this.postData.deceases
+            .map(function (e) {
+              return e.name;
+            })
+            .indexOf(decease.name);
 
-        if (position === -1) {
-          this.postData.deceases.push(decease);
-        } else {
-          this.postData.deceases[position].severity = decease.severity;
+          if (position === -1) {
+            this.postData.deceases.push(decease);
+          } else {
+            this.postData.deceases[position].severity = decease.severity;
+          }
         }
-        console.log(this.postData)
       });
     }
   }
@@ -143,23 +166,30 @@ export class FigureComponent implements OnInit {
   templateUrl: "./figure.component.dialog.html",
 })
 export class FigureComponentDialog {
+  userNotResponded: boolean;
   constructor(
     public dialogRef: MatDialogRef<FigureComponentDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  ) {
+    dialogRef.disableClose = true;
+    this.userNotResponded = data.decease.severity === 0;
+  }
 
   onFocus(num) {
     switch (num) {
       case 1:
         this.data.decease.severity = 1;
+        this.userNotResponded = false;
         break;
 
       case 2:
         this.data.decease.severity = 2;
+        this.userNotResponded = false;
         break;
 
       case 3:
         this.data.decease.severity = 3;
+        this.userNotResponded = false;
         break;
     }
   }
@@ -180,7 +210,9 @@ export class FigureComponentListDialog {
     public dialog: MatDialog,
     public listDialogRef: MatDialogRef<FigureComponentListDialog>,
     @Inject(MAT_DIALOG_DATA) public data: ListDialogData
-  ) {}
+  ) {
+    listDialogRef.disableClose = true;
+  }
 
   handleClick(area) {
     const dialogRef = this.dialog.open(FigureComponentDialog, {
@@ -196,6 +228,6 @@ export class FigureComponentListDialog {
   }
 
   onSubmit() {
-    this.listDialogRef.close();
+    this.listDialogRef.close(this.data);
   }
 }

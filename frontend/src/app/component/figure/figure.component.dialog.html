@@ -19,7 +19,7 @@
         <mat-chip color="primary" selected="{{ isSelected(2) }}" (focus)="onFocus(2)">Mild symptoms</mat-chip>
         <mat-chip color="warn" selected="{{ isSelected(3) }}" (focus)="onFocus(3)">Severe symptoms</mat-chip>
         <div style="padding:3%"></div>
-        <mat-chip  [mat-dialog-close]="data">Submit</mat-chip>
+        <mat-chip  [mat-dialog-close]="data" disabled="{{ this.userNotResponded }}">Submit</mat-chip>
     </mat-chip-list>
   </mat-grid-tile>
 </mat-grid-list>
