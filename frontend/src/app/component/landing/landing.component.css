@@ -77,10 +77,10 @@
   display: none !important;
 }
 
-.button-style{
-  padding-left:5%;
-  padding-right:5%;
-}
+/* .button-style{
+  padding-left:10%;
+  padding-right:10%;
+} */
 
 /* .image-container{
   padding-bottom: 1rem;
@@ -89,7 +89,7 @@
 .image-container img{
   justify-content: center;
   height: 10rem;
-  width: 10rem;
+  width: 15rem;
 }
 
 .header-container{

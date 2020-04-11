@@ -1,6 +1,11 @@
+import { postData } from './../figure/figure.component';
+import { Gender } from './../../../../../backend/lib/modules/common/models/common.model';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
+import {ILandingdata} from './landing-data.model'
+
+
 
 interface IAge {
   value: string;
@@ -18,6 +23,10 @@ interface IForeign {
   styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
+
+  Gender:string
+  
+
   gender: string[] = ["Female","Male"];
   ageGroups: IAge[] = [
     { value: "age-0", viewValue: "Infant (0-5 Years)" },
@@ -43,19 +52,37 @@ export class LandingComponent implements OnInit {
    
   });
 
+  isGender():boolean{
+    if(this.Gender=="Male")
+      return true
+    else
+      return false
+  }
+
+ 
+  
+   
+
   constructor(private router: Router, activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {}
 
   onFormSubmit(): void {
-    const postData = Object.assign({}, this.dataForm.value);
-    postData.info1=Object.assign({}, this.dataForm.value.info1)
-    postData.info2=Object.assign({}, this.dataForm.value.info2)
-      // console.log('gender:' + this.dataForm.get('gender').value);
-      // console.log('age:' + this.dataForm.get('age').value);
-      // console.log(JSON.stringify(postData))
+    const submitData = Object.assign({}, this.dataForm.value);
+    
+    let postQuery={
+      gender:submitData.gender,
+      age:submitData.age,
+      noOfFamily:submitData.noOfFamily,
+      youForign:submitData.youForign,
+      familyForign:submitData.familyForign
+
+    }
+   
+     
+      
       this.router.navigate(['./figure'],{queryParams:{
-        postData:JSON.stringify(postData)
+        postData:JSON.stringify(postQuery)
       }})
 
   }
@@ -67,4 +94,6 @@ export class LandingComponent implements OnInit {
     }
     return true;
   }
+
+
 }
