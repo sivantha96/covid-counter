@@ -1,0 +1,36 @@
+<div class="container" style="height: 90vh; background: url(../../../assets/white.jpg)">
+    <div class="row" style="height: 80%;">
+        <div class="col ">
+            <ng-container *ngIf="showMan">
+                <div>
+                    <img class="img-human m-auto d-block" src="../../../assets/man.jpg" usemap="#mapMan" alt>
+                    <map name="mapMan">
+                        <area class="map-area" shape="circle" coords="234,411,235" (click)="handleClick('head')">
+                        <area class="map-area" shape="circle" coords="248,1081,249" (click)="handleClick('soreThroat')">
+                        <area class="map-area" shape="circle" coords="249,1764,250" (click)="handleClick('cough')">
+                        <area class="map-area" shape="circle" coords="261,2405,263" (click)="handleClick('cold')">
+                    </map>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!showMan">
+                <div>
+                    <img class="img-human m-auto d-block" src="../../../assets/woman.jpg" usemap="#mapWoman" alt>
+                    <map name="mapWoman">
+                        <area class="map-area" shape="circle" coords="248,410,247" (click)="handleClick('head')">
+                        <area class="map-area" shape="circle" coords="246,1084,247" (click)="handleClick('soreThroat')">
+                        <area class="map-area" shape="circle" coords="249,1756,248" (click)="handleClick('cough')">
+                        <area class="map-area" shape="circle" coords="249,2434,249" (click)="handleClick('cold')">
+                    </map>
+                </div>
+            </ng-container>
+            <script>
+                $('map').imageMapResize();
+            </script>
+        </div>
+    </div>
+    <div class="row " style="height: 10%;">
+        <div class="col button-container">
+            <button type="Button" class="btn btn-primary btn-lg w-50">Submit</button>
+        </div>
+    </div>
+</div>

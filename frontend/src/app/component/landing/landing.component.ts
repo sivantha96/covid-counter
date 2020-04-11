@@ -1,31 +1,91 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { ILandingdata } from "./landing-data.model";
 
+interface IAge {
+  value: string;
+  viewValue: string;
+}
+
+interface IForeign {
+  value: string;
+  viewValue: string;
+}
+
+interface IPostData{
+  family_members:number,
+  is_visited_foreign_country:string,
+  is_member_visited_foreign_country:string,
+  age:string,
+  gender:string
+}
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  selector: "app-landing",
+  templateUrl: "./landing.component.html",
+  styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
-
   Gender: string;
-  gender: string[] = ['Male', 'Female'];
+
+  isOptional=false;
+
+  gender: string[] = ["Female", "Male"];
+  ageGroups: IAge[] = [
+    { value: "0", viewValue: "Infant (0-5 Years)" },
+    { value: "1", viewValue: "child (5-18 Years)" },
+    { value: "3", viewValue: "Young (18-30 Years)" },
+    { value: "4", viewValue: "Middle Age (30-60 Years)" },
+    { value: "5", viewValue: "Old (Above 60 Years)" },
+  ];
+
+  foreignGroups: IForeign[] = [
+    { value: "Yes", viewValue: "Yes" },
+    { value: "No", viewValue: "No" },
+  ];
 
   dataForm = new FormGroup({
-    gender: new FormControl('', Validators.required),
-    age: new FormControl('', Validators.required),
-  })
+    noOfFamily: new FormControl("", Validators.required),
+    youForeign: new FormControl("", Validators.required),
+    familyForeign: new FormControl("", Validators.required),
+    gender: new FormControl("", Validators.required),
+    age: new FormControl("", Validators.required),
+  });
 
-  constructor() { }
-
-  ngOnInit(): void {
+  isGender(): boolean {
+    
+    if (this.dataForm.get('gender').value=='Male') return true;
+    else return false;
   }
 
-  onFormSubmit(): void {
-    console.log('gender:' + this.dataForm.get('gender').value);
-    console.log('age:' + this.dataForm.get('age').value);
+  constructor(private router: Router, activatedRoute: ActivatedRoute) {}
 
+  ngOnInit(): void {}
+
+  onFormSubmit(): void {
+    const submitData = Object.assign({}, this.dataForm.value);
+
+    let postQuery:IPostData = {
+      gender: submitData.gender,
+      age: submitData.age,
+      family_members: submitData.noOfFamily,
+      is_visited_foreign_country: submitData.youForeign,
+      is_member_visited_foreign_country: submitData.familyForeign,
+    };
+
+    this.router.navigate(["./figure"], {
+      queryParams: {
+        postData: JSON.stringify(postQuery),
+      },
+    });
+  }
+
+  numberOnly(event): boolean {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 }
