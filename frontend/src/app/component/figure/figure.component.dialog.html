@@ -15,11 +15,11 @@
   <mat-grid-tile rowspan="4">
     <mat-chip-list class="mat-chip-list-stacked"
       aria-orientation="vertical">
-        <mat-chip color="accent" selected="{{this.selection1}}" (focus)="onFocus(1)">No symptoms</mat-chip>
-        <mat-chip color="primary" selected="{{this.selection2}}" (focus)="onFocus(2)">Mild symptoms</mat-chip>
-        <mat-chip color="warn" selected="{{this.selection3}}" (focus)="onFocus(3)">Severe symptoms</mat-chip>
+        <mat-chip color="accent" selected="{{ isSelected(1) }}" (focus)="onFocus(1)">No symptoms</mat-chip>
+        <mat-chip color="primary" selected="{{ isSelected(2) }}" (focus)="onFocus(2)">Mild symptoms</mat-chip>
+        <mat-chip color="warn" selected="{{ isSelected(3) }}" (focus)="onFocus(3)">Severe symptoms</mat-chip>
         <div style="padding:3%"></div>
-        <mat-chip (focus)="onFocus(4)">Submit</mat-chip>
+        <mat-chip  [mat-dialog-close]="data">Submit</mat-chip>
     </mat-chip-list>
   </mat-grid-tile>
 </mat-grid-list>

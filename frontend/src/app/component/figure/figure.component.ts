@@ -13,25 +13,26 @@ export interface DialogData {
     name: string;
     imageUrl: string;
     iconUrl: string;
+    severity: number;
   };
 }
 
 export interface ListDialogData {
-  areas: string[]
-  deceases: {}
+  areas: string[];
+  deceases: {};
 }
 
 // receiving data from the previous route
 export interface PostData {
-  info1: {
-    noOfFamily: number;
-    youForeign: boolean;
-    familyForeign: boolean;
-  };
-  info2: {
-    gender: string;
-    age: string;
-  };
+  family_members: number,
+  is_visited_foreign_country: string,
+  is_member_visited_foreign_country: string,
+  age: string,
+  gender: string,
+  deceases: {
+      name: string,
+      severity: string,
+  }[]
 }
 
 declare var $: any;
@@ -47,21 +48,24 @@ export class FigureComponent implements OnInit {
     cold: {
       name: "Cold",
       imageUrl: "../../../assets/cold.jpg",
-      iconUrl: "../../../assets/icon.jpg"
+      iconUrl: "../../../assets/icon.jpg",
+      severity: 0
     },
     soreThroat: {
       name: "Sore Throat",
       imageUrl: "../../../assets/sore.jpg",
-      iconUrl: "../../../assets/icon.jpg"
+      iconUrl: "../../../assets/icon.jpg",
+      severity: 0
     },
     cough: {
       name: "Cough",
       imageUrl: "../../../assets/cough.jpg",
-      iconUrl: "../../../assets/icon.jpg"
+      iconUrl: "../../../assets/icon.jpg",
+      severity: 0
     },
   };
 
-  postData: any;
+  postData: PostData;
   url = "assets/js/onChangeWindow.js";
   showMan: boolean = true;
 
@@ -82,6 +86,7 @@ export class FigureComponent implements OnInit {
       } catch (error) {
         console.log(error);
       }
+      console.log(this.postData)
     });
 
     // setting the showMan property
@@ -108,6 +113,8 @@ export class FigureComponent implements OnInit {
         autoFocus: false,
       });
 
+      
+
       // other area is clicked
     } else {
       const dialogRef = this.dialog.open(FigureComponentDialog, {
@@ -118,6 +125,15 @@ export class FigureComponent implements OnInit {
           decease: this.deceases[areaType],
         },
         autoFocus: false,
+      });
+
+      dialogRef.afterClosed().subscribe(data => {
+        // const newPostData = {
+        //   deceases: {
+        //     name: data.
+        //   }
+        // }
+        console.log(data)
       });
     }
   }
@@ -139,48 +155,30 @@ export class FigureComponent implements OnInit {
   templateUrl: "./figure.component.dialog.html",
 })
 export class FigureComponentDialog {
-  userResponse: number;
-  selection1: boolean = false;
-  selection2: boolean = false;
-  selection3: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<FigureComponentDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  onSubmit() {
-    console.log(this.userResponse);
-  }
-
-  onPressOption(option) {
-    this.userResponse = option;
-  }
-
   onFocus(num) {
     switch (num) {
       case 1:
-        this.selection1 = true;
-        this.selection2 = false;
-        this.selection3 = false;
+        this.data.decease.severity = 1
         break;
 
       case 2:
-        this.selection1 = false;
-        this.selection2 = true;
-        this.selection3 = false;
+        this.data.decease.severity = 2
         break;
 
       case 3:
-        this.selection1 = false;
-        this.selection2 = false;
-        this.selection3 = true;
-        break;
-
-      case 4:
-        this.dialogRef.close();
+        this.data.decease.severity = 3
         break;
     }
+  }
+
+  isSelected(chip) {
+    return (chip === this.data.decease.severity);
   }
 }
 
@@ -191,7 +189,6 @@ export class FigureComponentDialog {
   styleUrls: ["./figure.component.css"],
 })
 export class FigureComponentListDialog {
-
   constructor(
     public dialog: MatDialog,
     public listDialogRef: MatDialogRef<FigureComponentListDialog>,
@@ -205,7 +202,7 @@ export class FigureComponentListDialog {
       maxHeight: "90vh",
       data: {
         // decease: this.deceases[areaType],
-        decease: this.data.deceases[area]
+        decease: this.data.deceases[area],
       },
       autoFocus: false,
     });
