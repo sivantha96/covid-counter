@@ -1,9 +1,9 @@
-<div class="container" style="height: 90vh; background: url(../../../assets/white.jpg)">
+<div class="container" style="height: 90vh; background: url(../../../../../assets/figure/white.jpg)">
     <div class="row" style="height: 80%;">
         <div class="col ">
             <ng-container *ngIf="showMan">
                 <div>
-                    <img class="img-human m-auto d-block" src="../../../assets/man.jpg" usemap="#mapMan" alt>
+                    <img class="img-human m-auto d-block" src="../../../assets/figure/man.jpg" usemap="#mapMan" alt>
                     <map name="mapMan">
                         <area class="map-area" shape="circle" coords="234,411,235" (click)="handleClick('head')">
                         <area class="map-area" shape="circle" coords="248,1081,249" (click)="handleClick('soreThroat')">
@@ -14,7 +14,7 @@
             </ng-container>
             <ng-container *ngIf="!showMan">
                 <div>
-                    <img class="img-human m-auto d-block" src="../../../assets/woman.jpg" usemap="#mapWoman" alt>
+                    <img class="img-human m-auto d-block" src="../../../assets/figure/woman.jpg" usemap="#mapWoman" alt>
                     <map name="mapWoman">
                         <area class="map-area" shape="circle" coords="248,410,247" (click)="handleClick('head')">
                         <area class="map-area" shape="circle" coords="246,1084,247" (click)="handleClick('soreThroat')">

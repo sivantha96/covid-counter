@@ -30,8 +30,10 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/app/component/mapster/index.js",
-              "src/assets/js/onChangeWindow.js"
+              "src/assets/js/onChangeWindow.js",
+              "src/app/component/mapster/mapsterFunctions.js",
+              "src/app/component/mapster/coordinateTransform.js",
+              "src/app/component/mapster/jquery.imagemapster.min.js"
             ]
           },
           "configurations": {

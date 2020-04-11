@@ -53,3 +53,10 @@ body {
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
   background-color: #ecb200 !important;
 }
+
+ul {
+  list-style-type: none;
+}
+li a:hover, li a.hover {
+  color:red;
+}

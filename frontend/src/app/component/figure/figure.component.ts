@@ -46,20 +46,20 @@ export class FigureComponent implements OnInit {
   deceases = {
     cold: {
       name: "Cold",
-      imageUrl: "../../../assets/cold.jpg",
-      iconUrl: "../../../assets/icon.jpg",
+      imageUrl: "../../../assets/figure/cold.jpg",
+      iconUrl: "../../../assets/figure/icon.jpg",
       severity: 0
     },
     soreThroat: {
       name: "Sore Throat",
-      imageUrl: "../../../assets/sore.jpg",
-      iconUrl: "../../../assets/icon.jpg",
+      imageUrl: "../../../assets/figure/sore.jpg",
+      iconUrl: "../../../assets/figure/icon.jpg",
       severity: 0
     },
     cough: {
       name: "Cough",
-      imageUrl: "../../../assets/cough.jpg",
-      iconUrl: "../../../assets/icon.jpg",
+      imageUrl: "../../../assets/figure/cough.jpg",
+      iconUrl: "../../../assets/figure/icon.jpg",
       severity: 0
     },
   };
