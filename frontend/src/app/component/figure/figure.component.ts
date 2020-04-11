@@ -55,7 +55,7 @@ export class FigureComponent implements OnInit {
     // parse stringified data received from the previous route
     this.route.queryParams.subscribe((params) => {
       try {
-        this.postData = { ...JSON.parse(params.postData) };
+        this.postData = { ...JSON.parse(params.postData), deceases: [] };
       } catch (error) {
         console.log(error);
       }
@@ -99,12 +99,23 @@ export class FigureComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((data) => {
-        // const newPostData = {
-        //   deceases: {
-        //     name: data.
-        //   }
-        // }
-        console.log(data);
+        const decease = {
+          name: data.decease.name,
+          severity: data.decease.severity,
+        };
+        // console.log(decease);
+        const position = this.postData.deceases
+          .map(function (e) {
+            return e.name;
+          })
+          .indexOf(decease.name);
+
+        if (position === -1) {
+          this.postData.deceases.push(decease);
+        } else {
+          this.postData.deceases[position].severity = decease.severity;
+        }
+        console.log(this.postData)
       });
     }
   }
@@ -120,9 +131,9 @@ export class FigureComponent implements OnInit {
   }
 
   onSubmitMain() {
-    this.userInfoService.postInfo(this.postData).subscribe(res => {
-      console.log(res)
-    })
+    this.userInfoService.postInfo(this.postData).subscribe((res) => {
+      console.log(res);
+    });
   }
 }
 
