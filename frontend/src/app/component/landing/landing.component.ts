@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { FormControl, Validators, FormGroup, AbstractControl } from "@angular/forms";
 import { ILandingdata } from "./landing-data.model";
 
 interface IAge {
@@ -76,15 +76,15 @@ export class LandingComponent implements OnInit {
   
 
   isEmptyNoOfFamily():boolean{
-    return this.dataForm.get("noOfFamily").value()==undefined ? true :false
+    return this.dataForm.get("noOfFamily").value==null ? true :false
   }
 
   isEmptyYouForeign():boolean{
-    return this.dataForm.get("youForeign").value()==undefined ? true :false
+    return this.dataForm.get("youForeign").value==null ? true :false
   }
 
   isEmptyFamilyForeign():boolean{
-    return this.dataForm.get("familyForeign").value()===undefined ? true :false
+    return this.dataForm.get("familyForeign").value==null ? true :false
   }
 
   
@@ -117,11 +117,16 @@ export class LandingComponent implements OnInit {
     });
   }
 
-  numberOnly(event): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
-  }
+  //custom validation
+
+
+  // numberOnly(control: AbstractControl): {[key:string]:boolean} | null {
+  //   const inputString = String.fromCharCode(control.value);
+  //   if (inputString && !String(inputString).match('^[0,9]*$')) {
+      
+  //     return {"chaNotAllowed":true};
+  //   }
+  //   else
+  //   return null 
+  // }
 }

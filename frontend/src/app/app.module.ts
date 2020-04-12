@@ -1,3 +1,4 @@
+import { StrictNumberOnlyDirective } from './component/landing/numers-only.directive';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import {
@@ -36,6 +37,7 @@ import { HttpClientModule } from "@angular/common/http";
     FigureComponentListDialog,
     WelcomeComponent,
     ThankYouComponent,
+    StrictNumberOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ import { HttpClientModule } from "@angular/common/http";
     MatStepperModule,
     MatChipsModule,
     HttpClientModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent],
