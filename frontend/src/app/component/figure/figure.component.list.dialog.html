@@ -4,11 +4,11 @@
             <div matRipple class="card" (click)="handleClick(area)" style="flex: 1; height: 100%; cursor: pointer; ">
                 <div class="row" style=" background: url(../../../../../assets/figure/white.jpg)">
                     <div class="col-4" style="text-align: center; padding-top: 2vmin;">
-                        <img width="100%" [src]="data.deceases[area].iconUrl">
+                        <img width="100%" [src]="data.diseases[area].iconUrl">
                     </div>
                     <div class="col-8">
                         <div class="row" style="padding-left:5%; padding-top: 15%;">
-                            <h1 class="text-card"> {{ data.deceases[area].name }} </h1>
+                            <h1 class="text-card"> {{ data.diseases[area].name }} </h1>
                         </div>
 
                     </div>
@@ -18,6 +18,9 @@
 
     </mat-grid-list>
 </div>
-<div mat-dialog-actions>
-    <button type="Button" class="btn btn-primary btn-md mx-auto" (click)="onSubmit()">Submit</button>
+<div class="row ">
+    <div class="col button-container py-2">
+        <alert id="dialog-submit"></alert>
+    <button type="Button" class="btn btn-primary btn-md w-75 rounded-pill" (click)="onSubmit()">Submit</button>
+    </div>
 </div>

@@ -1,52 +1,64 @@
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Component, OnInit, Inject, Pipe } from "@angular/core";
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from "@angular/material/dialog";
-import { DialogData, ListDialogData, PostData } from "src/app/model/figure";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PostData, AlertOptions } from "src/app/model/figure";
 import { UserInfoService } from "src/app/service/user-info.service";
+import { AlertService } from "src/app/modules/_alert";
+import { FigureComponentDialog } from "./figure.component.dialog";
+import { FigureComponentListDialog } from "./figure.component.list.dialog";
 
 declare var $: any;
 
-// figure
 @Component({
   selector: "app-figure",
   templateUrl: "./figure.component.html",
   styleUrls: ["./figure.component.css"],
 })
 export class FigureComponent implements OnInit {
-  deceases = {
-    cold: {
-      name: "Cold",
-      imageUrl: "../../../assets/figure/cold.jpg",
-      iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0,
-    },
-    soreThroat: {
-      name: "Sore Throat",
-      imageUrl: "../../../assets/figure/sore.jpg",
-      iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0,
-    },
-    cough: {
-      name: "Cough",
-      imageUrl: "../../../assets/figure/cough.jpg",
-      iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0,
-    },
-  };
+  diseases: any;
   postData: PostData;
-  scriptUrl = "assets/js/onChangeWindow.js";
-  showMan: boolean = true;
+  scriptUrl: string;
+  showMan: boolean;
+  symptomsArray: string[];
+  noOfSymptoms: number;
+  alertOptions: AlertOptions;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private userInfoService: UserInfoService
-  ) {}
+    private userInfoService: UserInfoService,
+    protected alertService: AlertService
+  ) {
+    this.scriptUrl = "assets/js/onChangeWindow.js";
+    this.showMan = true;
+    this.symptomsArray = ["cold", "soreThroat", "cough"];
+    this.noOfSymptoms = this.symptomsArray.length;
+    this.alertOptions = {
+      autoClose: true,
+      id: "main-submit",
+    };
+    this.diseases = {
+      cold: {
+        name: "Cold",
+        imageUrl: "../../../assets/figure/cold.jpg",
+        iconUrl: "../../../assets/figure/icon.jpg",
+        severity: 0,
+      },
+      soreThroat: {
+        name: "Sore Throat",
+        imageUrl: "../../../assets/figure/sore.jpg",
+        iconUrl: "../../../assets/figure/icon.jpg",
+        severity: 0,
+      },
+      cough: {
+        name: "Cough",
+        imageUrl: "../../../assets/figure/cough.jpg",
+        iconUrl: "../../../assets/figure/icon.jpg",
+        severity: 0,
+      },
+    };
+  }
 
   ngOnInit(): void {
     // calling the map coordinates transforming script executor
@@ -55,11 +67,10 @@ export class FigureComponent implements OnInit {
     // parse stringified data received from the previous route
     this.route.queryParams.subscribe((params) => {
       try {
-        this.postData = { ...JSON.parse(params.postData) };
+        this.postData = { ...JSON.parse(params.postData), diseases: [] };
       } catch (error) {
         console.log(error);
       }
-      console.log(this.postData);
     });
 
     // setting the showMan property
@@ -80,10 +91,33 @@ export class FigureComponent implements OnInit {
         height: "none",
         maxHeight: "90vh",
         data: {
-          areas: ["cold", "soreThroat", "cough"],
-          deceases: this.deceases,
+          areas: this.symptomsArray,
+          diseases: this.diseases,
         },
         autoFocus: false,
+      });
+
+      listDialogRef.afterClosed().subscribe((data) => {
+        if (typeof data !== "undefined") {
+          this.symptomsArray.forEach((symptom) => {
+            let disease = {
+              name: data.diseases[symptom].name,
+              severity: data.diseases[symptom].severity,
+            };
+
+            const position = this.postData.diseases
+              .map(function (e) {
+                return e.name;
+              })
+              .indexOf(disease.name);
+
+            if (position === -1) {
+              this.postData.diseases.push(disease);
+            } else {
+              this.postData.diseases[position].severity = disease.severity;
+            }
+          });
+        }
       });
 
       // other area is clicked
@@ -93,18 +127,29 @@ export class FigureComponent implements OnInit {
         height: "none",
         maxHeight: "90vh",
         data: {
-          decease: this.deceases[areaType],
+          disease: this.diseases[areaType],
         },
         autoFocus: false,
       });
 
       dialogRef.afterClosed().subscribe((data) => {
-        // const newPostData = {
-        //   deceases: {
-        //     name: data.
-        //   }
-        // }
-        console.log(data);
+        if (typeof data !== "undefined") {
+          const disease = {
+            name: data.disease.name,
+            severity: data.disease.severity,
+          };
+          const position = this.postData.diseases
+            .map(function (e) {
+              return e.name;
+            })
+            .indexOf(disease.name);
+
+          if (position === -1) {
+            this.postData.diseases.push(disease);
+          } else {
+            this.postData.diseases[position].severity = disease.severity;
+          }
+        }
       });
     }
   }
@@ -120,71 +165,12 @@ export class FigureComponent implements OnInit {
   }
 
   onSubmitMain() {
-    this.userInfoService.postInfo(this.postData).subscribe(res => {
-      console.log(res)
-    })
-  }
-}
-
-// single page dialog
-@Component({
-  selector: "app-figure-dialog",
-  templateUrl: "./figure.component.dialog.html",
-})
-export class FigureComponentDialog {
-  constructor(
-    public dialogRef: MatDialogRef<FigureComponentDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
-
-  onFocus(num) {
-    switch (num) {
-      case 1:
-        this.data.decease.severity = 1;
-        break;
-
-      case 2:
-        this.data.decease.severity = 2;
-        break;
-
-      case 3:
-        this.data.decease.severity = 3;
-        break;
+    if (this.noOfSymptoms === this.postData.diseases.length) {
+      this.userInfoService.postInfo(this.postData).subscribe((res) => {
+        console.log(res);
+      });
+    } else {
+      this.alertService.warn("Not completed", this.alertOptions);
     }
-  }
-
-  isSelected(chip) {
-    return chip === this.data.decease.severity;
-  }
-}
-
-// list dialog
-@Component({
-  selector: "app-figure-list-dialog",
-  templateUrl: "./figure.component.list.dialog.html",
-  styleUrls: ["./figure.component.css"],
-})
-export class FigureComponentListDialog {
-  constructor(
-    public dialog: MatDialog,
-    public listDialogRef: MatDialogRef<FigureComponentListDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: ListDialogData
-  ) {}
-
-  handleClick(area) {
-    const dialogRef = this.dialog.open(FigureComponentDialog, {
-      width: "90vh",
-      height: "none",
-      maxHeight: "90vh",
-      data: {
-        // decease: this.deceases[areaType],
-        decease: this.data.deceases[area],
-      },
-      autoFocus: false,
-    });
-  }
-
-  onSubmit() {
-    this.listDialogRef.close();
   }
 }

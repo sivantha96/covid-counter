@@ -1,11 +1,7 @@
-import { StrictNumberOnlyDirective } from './component/landing/numers-only.directive';
+import { StrictNumberOnlyDirective } from "./component/landing/numers-only.directive";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import {
-  FigureComponent,
-  FigureComponentDialog,
-  FigureComponentListDialog,
-} from "./component/figure/figure.component";
+import { FigureComponent } from "./component/figure/figure.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatRippleModule } from "@angular/material/core";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -27,6 +23,10 @@ import { MatChipsModule } from "@angular/material/chips";
 import { WelcomeComponent } from "./component/page/welcome/welcome.component";
 import { ThankYouComponent } from "./component/page/thank-you/thank-you.component";
 import { HttpClientModule } from "@angular/common/http";
+import { AlertModule } from "./modules/_alert";
+import { FigureComponentDialog } from "./component/figure/figure.component.dialog";
+import { FigureComponentListDialog } from "./component/figure/figure.component.list.dialog";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,7 @@ import { HttpClientModule } from "@angular/common/http";
     FigureComponentListDialog,
     WelcomeComponent,
     ThankYouComponent,
-    StrictNumberOnlyDirective
+    StrictNumberOnlyDirective,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +57,7 @@ import { HttpClientModule } from "@angular/common/http";
     MatStepperModule,
     MatChipsModule,
     HttpClientModule,
-   
+    AlertModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
