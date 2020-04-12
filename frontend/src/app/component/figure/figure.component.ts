@@ -159,6 +159,7 @@ export class FigureComponent implements OnInit {
   onSubmitMain() {
     if (this.noOfSymptoms === this.postData.diseases.length) {
       console.log("completed")
+      console.log(this.postData)
     }
     else {
       console.log("Not completed")
