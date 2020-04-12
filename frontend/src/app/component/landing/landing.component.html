@@ -6,43 +6,78 @@
                     <mat-card-title>COVID-19</mat-card-title>
                     <mat-card-subtitle>Fill all the details to continue</mat-card-subtitle>
                 </div>
-                <mat-horizontal-stepper  >
+                <mat-horizontal-stepper linear='true'>
                     <mat-card-content>
-                        <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()"  class="form-container">
+                        
+                        <!-- <form [formGroup]="dataForm">
+                            <mat-step [stepControl]="dataForm.get('age')">
+                                
+                                    <input formControlName="age" type="text">
+                               
+                                <mat-card-actions class="button-container">
+                                    <button type="button" class="btn btn-secondary btn-sm btn-block"
+                                        matStepperNext>Next</button>
+                                </mat-card-actions>
+                            </mat-step>
+                            <mat-step [stepControl]="dataForm.get('gender')">
+                                
+                                    <input formControlName="gender" type="text">
+                             
+                                <mat-card-actions class="button-container">
+                                    <button type="button" class="btn btn-secondary btn-sm btn-block"
+                                        matStepperNext>Next</button>
+                                </mat-card-actions>
+                            </mat-step>
+                            <mat-step>
+                                
+                                <input formControlName="gender" type="text">
+                         
+                            <mat-card-actions class="button-container">
+                                <button type="button" class="btn btn-secondary btn-sm btn-block"
+                                    matStepperNext>Next</button>
+                            </mat-card-actions>
+                        </mat-step>
+                            </form> -->
+
+                        
+                        
 
 
 
-                             <!-- gender -->
-                             <mat-step>
+
+                        <form [formGroup]="dataForm" (ngSubmit)="onFormSubmit()" class="form-container">
+                            <!-- gender -->
+                            <mat-step [stepControl]="dataForm.get('gender')">
                                 <div class="field-container">
                                     <div class="image-container">
                                         <img src="../../../assets/landing/gender.jpg" alt="">
                                     </div>
-                                    
+
                                     <label>Select your Gender</label>
                                     <mat-radio-group class="example-radio-group"
-                                        aria-labelledby="example-radio-group-label" formControlName="gender" > 
+                                        aria-labelledby="example-radio-group-label" formControlName="gender" required>
                                         <mat-radio-button class="example-radio-button" *ngFor="let i of gender"
                                             [value]="i">
                                             {{ i }}
                                         </mat-radio-button>
                                     </mat-radio-group>
+                                    
                                 </div>
                                 <mat-card-actions class="button-container">
-                                    <button type="button" class="btn btn-secondary btn-sm btn-block" matStepperNext>Next</button>
-                                    <!-- <button class="btn btn-dark btn-sm" mat-button matStepperNext>Next</button> -->
+                                    <button type="button" class="btn btn-secondary btn-sm btn-block"
+                                        matStepperNext>Next</button>
                                 </mat-card-actions>
                             </mat-step>
 
 
-                              <!-- age -->
-                              <mat-step>
+                            <!-- age -->
+                            <mat-step [stepControl]="dataForm.get('age')">
                                 <div class="image-container">
                                     <img src="../../../assets/landing/maleAging.jpg" alt="" *ngIf="isGender()">
 
                                     <img src="../../../assets/landing/femaleAging.jpg" alt="" *ngIf="!isGender()">
                                 </div>
-                               
+
                                 <mat-form-field class="field-container" style="width:60%">
                                     <mat-label>Select your age</mat-label>
                                     <mat-select formControlName="age">
@@ -52,31 +87,36 @@
                                     </mat-select>
                                 </mat-form-field>
                                 <mat-card-actions class="button-container">
-                                    <button type="button" mat-button matStepperPrevious class="btn btn-secondary btn-sm button-style">Previous</button>
-                                    <button type="button" class="btn btn-secondary btn-sm button-style" mat-button matStepperNext>Continue</button>
+                                    <button type="button" mat-button matStepperPrevious
+                                        class="btn btn-secondary btn-sm button-style">Previous</button>
+                                    <button type="button" class="btn btn-secondary btn-sm button-style" mat-button
+                                        matStepperNext>Continue</button>
                                 </mat-card-actions>
-                                
+
                             </mat-step>
 
-                            
+
                             <!-- noOfFamily -->
-                            <mat-step>
+                            <mat-step [stepControl]="dataForm.get('noOfFamily')">
                                 <div class="image-container">
                                     <img src="../../../assets/landing/family.jpg" alt="">
                                 </div>
                                 <mat-form-field class="field-container" style="width:60%">
                                     <label>How many family members in your family?</label>
-                                    <input matInput formControlName="noOfFamily" placeholder="" >
+                                    <input matInput formControlName="noOfFamily" placeholder="">
+                                    <mat-error>This field is required</mat-error>
                                     <mat-hint>enter the number</mat-hint>
                                 </mat-form-field>
                                 <mat-card-actions class="button-container">
-                                    <button type="button" mat-button matStepperPrevious class="btn btn-secondary btn-sm button-style">Previous</button>
-                                    <button type="button" class="btn btn-secondary btn-sm button-style" mat-button matStepperNext>Continue</button>
+                                    <button type="button" mat-button matStepperPrevious
+                                        class="btn btn-secondary btn-sm button-style">Previous</button>
+                                    <button type="button" class="btn btn-secondary btn-sm button-style" mat-button
+                                        matStepperNext>Continue</button>
                                 </mat-card-actions>
                             </mat-step>
 
                             <!-- youForeign -->
-                            <mat-step>
+                            <mat-step [stepControl]="dataForm.get('youForeign')" >
                                 <div class="image-container">
                                     <img src="../../../assets/landing/maleAbroad.jpg" *ngIf="isGender()" alt="">
                                     <img src="../../../assets/landing/femaleAbroad.jpg" *ngIf="!isGender()" alt="">
@@ -85,29 +125,8 @@
                                     <label>Have you recently travelled overseas?</label>
                                     <mat-radio-group aria-labelledby="example-radio-group-label"
                                         class="example-radio-group" formControlName="youForeign">
-                                        <mat-radio-button class="example-radio-button"
-                                            *ngFor="let ans of foreignGroups" [value]="ans.value">
-                                            {{ans.viewValue}}
-                                        </mat-radio-button>
-                                    </mat-radio-group>
-                                </div>
-                                <mat-card-actions class="button-container">
-                                    <button type="button" mat-button matStepperPrevious class="btn btn-secondary btn-sm button-style">Previous</button>
-                                    <button type="button" class="btn btn-secondary btn-sm button-style" mat-button matStepperNext>Continue</button>
-                                </mat-card-actions>
-                            </mat-step>
-
-                            <!-- familyForeign -->
-                            <mat-step>
-                                <div class="image-container">
-                                    <img src="../../../assets/landing/familyAbroad.jpg" alt="">
-                                </div>
-                                <div class="field-container">
-                                    <label>Family members recently travelled overseas?</label>
-                                    <mat-radio-group aria-labelledby="example-radio-group-label"
-                                        class="example-radio-group" formControlName="familyForeign">
-                                        <mat-radio-button class="example-radio-button"
-                                            *ngFor="let ans of foreignGroups" [value]="ans.value">
+                                        <mat-radio-button class="example-radio-button" *ngFor="let ans of foreignGroups"
+                                            [value]="ans.value">
                                             {{ans.viewValue}}
                                         </mat-radio-button>
                                     </mat-radio-group>
@@ -115,84 +134,33 @@
                                 <mat-card-actions class="button-container">
                                     <button type="button" mat-button matStepperPrevious
                                         class="btn btn-secondary btn-sm button-style">Previous</button>
-                                    <button type="button"  type="submit" class="btn btn-secondary btn-sm button-style" type="submit" (click)="onFormSubmit()"
-                                        mat-raised-button>Continue</button>
+                                    <button type="button" class="btn btn-secondary btn-sm button-style" mat-button
+                                        matStepperNext>Continue</button>
                                 </mat-card-actions>
                             </mat-step>
 
-                           
-                          
-
-                           
-
-
-
-
-
-
-
-                            <!-- <mat-step>
-                                <div formGroupName='info1'>
-                                    <mat-form-field class=field-container>
-                                        <label>How many family members in your family?</label>
-                                        <input matInput formControlName="noOfFamily" placeholder="">
-                                        <mat-hint>enter the number</mat-hint>
-                                    </mat-form-field>
-                                    <div class=field-container>
-                                        <label>Have you recently travelled overseas?</label>
-                                        <mat-radio-group aria-labelledby="example-radio-group-label"
-                                            class="example-radio-group" formControlName="youForeign">
-                                            <mat-radio-button class="example-radio-button"
-                                                *ngFor="let ans of foreignGroups" [value]="ans.value">
-                                                {{ans.viewValue}}
-                                            </mat-radio-button>
-                                        </mat-radio-group>
-                                    </div>
-                                    <div class=field-container>
-                                        <label>Family members recently travelled overseas?</label>
-                                        <mat-radio-group aria-labelledby="example-radio-group-label"
-                                            class="example-radio-group" formControlName="familyForeign">
-                                            <mat-radio-button class="example-radio-button"
-                                                *ngFor="let ans of foreignGroups" [value]="ans.value">
-                                                {{ans.viewValue}}
-                                            </mat-radio-button>
-                                        </mat-radio-group>
-                                    </div>
-                                    <div class="button-container">
-                                        <button class="btn btn-dark btn-sm" mat-button matStepperNext>Next</button>
-                                    </div>
+                            <!-- familyForeign -->
+                            <mat-step [stepControl]="dataForm.get('familyForeign')" >
+                                <div class="image-container">
+                                    <img src="../../../assets/landing/familyAbroad.jpg" alt="">
                                 </div>
+                                <div class="field-container">
+                                    <label>Family members recently travelled overseas?</label>
+                                    <mat-radio-group aria-labelledby="example-radio-group-label"
+                                        class="example-radio-group" formControlName="familyForeign">
+                                        <mat-radio-button class="example-radio-button" *ngFor="let ans of foreignGroups"
+                                            [value]="ans.value">
+                                            {{ans.viewValue}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <mat-card-actions class="button-container">
+                                    <button type="button" mat-button matStepperPrevious
+                                        class="btn btn-secondary btn-sm button-style">Previous</button>
+                                    <button type="button" type="submit" class="btn btn-secondary btn-sm button-style"
+                                        type="submit" (click)="onFormSubmit()" mat-raised-button matSteppeNext>Continue</button>
+                                </mat-card-actions>
                             </mat-step>
-                            <mat-step>
-                                <div formGroupName='info2'>
-                                    <div>
-                                        <label>Select your Gender</label>
-                                        <mat-radio-group class="example-radio-group"
-                                            aria-labelledby="example-radio-group-label" formControlName="gender">
-                                            <mat-radio-button class="example-radio-button" *ngFor="let i of gender"
-                                                [value]="i">
-                                                {{ i }}
-                                            </mat-radio-button>
-                                        </mat-radio-group>
-                                    </div>
-                                    <mat-form-field class=field-container>
-                                        <mat-label>Select your age</mat-label>
-                                        <mat-select formControlName="age">
-                                            <mat-option *ngFor="let age of ageGroups" [value]="age.value">
-                                                {{age.viewValue}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div>
-                                    <mat-card-actions class="button-container">
-                                        <button mat-button matStepperPrevious
-                                            class="btn btn-dark btn-sm">Previous</button>
-                                        <button class="btn btn-dark btn-sm" type="submit" (click)="onFormSubmit()"
-                                            mat-raised-button>Continue</button>
-                                    </mat-card-actions>
-                                </div>
-                            </mat-step> -->
                         </form>
                     </mat-card-content>
                 </mat-horizontal-stepper>

@@ -27,11 +27,14 @@ interface IPostData{
   styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
-  Gender: string;
+  
 
   isOptional=false;
 
+  //options gender
   gender: string[] = ["Female", "Male"];
+
+  //options age groups
   ageGroups: IAge[] = [
     { value: "0", viewValue: "Infant (0-5 Years)" },
     { value: "1", viewValue: "child (5-18 Years)" },
@@ -40,6 +43,7 @@ export class LandingComponent implements OnInit {
     { value: "5", viewValue: "Old (Above 60 Years)" },
   ];
 
+  //options recently aboard
   foreignGroups: IForeign[] = [
     { value: "Yes", viewValue: "Yes" },
     { value: "No", viewValue: "No" },
@@ -60,6 +64,38 @@ export class LandingComponent implements OnInit {
   }
 
   constructor(private router: Router, activatedRoute: ActivatedRoute) {}
+
+  //IsEmpty's
+  isEmptyAge():boolean{
+    return this.dataForm.get("age")==undefined ? false :true
+  }
+
+  isEmptyGender:boolean=this.dataForm.get('gender').value==null ? true :false
+    
+    
+  
+
+  isEmptyNoOfFamily():boolean{
+    return this.dataForm.get("noOfFamily").value()==undefined ? true :false
+  }
+
+  isEmptyYouForeign():boolean{
+    return this.dataForm.get("youForeign").value()==undefined ? true :false
+  }
+
+  isEmptyFamilyForeign():boolean{
+    return this.dataForm.get("familyForeign").value()===undefined ? true :false
+  }
+
+  
+
+  
+
+  
+
+
+
+
 
   ngOnInit(): void {}
 
