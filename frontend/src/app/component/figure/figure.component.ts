@@ -17,7 +17,7 @@ declare var $: any;
   styleUrls: ["./figure.component.css"],
 })
 export class FigureComponent implements OnInit {
-  deceases = {
+  diseases = {
     cold: {
       name: "Cold",
       imageUrl: "../../../assets/figure/cold.jpg",
@@ -41,13 +41,16 @@ export class FigureComponent implements OnInit {
   scriptUrl = "assets/js/onChangeWindow.js";
   showMan: boolean = true;
   symptomsArray: string[] = ["cold", "soreThroat", "cough"];
+  noOfSymptoms:number 
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     private userInfoService: UserInfoService
-  ) {}
+  ) {
+    this.noOfSymptoms = this.symptomsArray.length;
+  }
 
   ngOnInit(): void {
     // calling the map coordinates transforming script executor
@@ -56,7 +59,7 @@ export class FigureComponent implements OnInit {
     // parse stringified data received from the previous route
     this.route.queryParams.subscribe((params) => {
       try {
-        this.postData = { ...JSON.parse(params.postData), deceases: [] };
+        this.postData = { ...JSON.parse(params.postData), diseases: [] };
       } catch (error) {
         console.log(error);
       }
@@ -81,7 +84,7 @@ export class FigureComponent implements OnInit {
         maxHeight: "90vh",
         data: {
           areas: this.symptomsArray,
-          deceases: this.deceases,
+          diseases: this.diseases,
         },
         autoFocus: false,
       });
@@ -89,21 +92,21 @@ export class FigureComponent implements OnInit {
       listDialogRef.afterClosed().subscribe((data) => {
         if (typeof data !== "undefined") {
           this.symptomsArray.forEach((symptom) => {
-            let decease = {
-              name: data.deceases[symptom].name,
-              severity: data.deceases[symptom].severity,
+            let disease = {
+              name: data.diseases[symptom].name,
+              severity: data.diseases[symptom].severity,
             };
 
-            const position = this.postData.deceases
+            const position = this.postData.diseases
               .map(function (e) {
                 return e.name;
               })
-              .indexOf(decease.name);
+              .indexOf(disease.name);
 
             if (position === -1) {
-              this.postData.deceases.push(decease);
+              this.postData.diseases.push(disease);
             } else {
-              this.postData.deceases[position].severity = decease.severity;
+              this.postData.diseases[position].severity = disease.severity;
             }
           });
         }
@@ -116,27 +119,27 @@ export class FigureComponent implements OnInit {
         height: "none",
         maxHeight: "90vh",
         data: {
-          decease: this.deceases[areaType],
+          disease: this.diseases[areaType],
         },
         autoFocus: false,
       });
 
       dialogRef.afterClosed().subscribe((data) => {
         if (typeof data !== "undefined") {
-          const decease = {
-            name: data.decease.name,
-            severity: data.decease.severity,
+          const disease = {
+            name: data.disease.name,
+            severity: data.disease.severity,
           };
-          const position = this.postData.deceases
+          const position = this.postData.diseases
             .map(function (e) {
               return e.name;
             })
-            .indexOf(decease.name);
+            .indexOf(disease.name);
 
           if (position === -1) {
-            this.postData.deceases.push(decease);
+            this.postData.diseases.push(disease);
           } else {
-            this.postData.deceases[position].severity = decease.severity;
+            this.postData.diseases[position].severity = disease.severity;
           }
         }
       });
@@ -154,9 +157,15 @@ export class FigureComponent implements OnInit {
   }
 
   onSubmitMain() {
-    this.userInfoService.postInfo(this.postData).subscribe((res) => {
-      console.log(res);
-    });
+    if (this.noOfSymptoms === this.postData.diseases.length) {
+      console.log("completed")
+    }
+    else {
+      console.log("Not completed")
+    }
+    // this.userInfoService.postInfo(this.postData).subscribe((res) => {
+    //   console.log(res);
+    // });
   }
 }
 
@@ -172,30 +181,30 @@ export class FigureComponentDialog {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     dialogRef.disableClose = true;
-    this.userNotResponded = data.decease.severity === 0;
+    this.userNotResponded = data.disease.severity === 0;
   }
 
   onFocus(num) {
     switch (num) {
       case 1:
-        this.data.decease.severity = 1;
+        this.data.disease.severity = 1;
         this.userNotResponded = false;
         break;
 
       case 2:
-        this.data.decease.severity = 2;
+        this.data.disease.severity = 2;
         this.userNotResponded = false;
         break;
 
       case 3:
-        this.data.decease.severity = 3;
+        this.data.disease.severity = 3;
         this.userNotResponded = false;
         break;
     }
   }
 
   isSelected(chip) {
-    return chip === this.data.decease.severity;
+    return chip === this.data.disease.severity;
   }
 }
 
@@ -220,14 +229,25 @@ export class FigureComponentListDialog {
       height: "none",
       maxHeight: "90vh",
       data: {
-        // decease: this.deceases[areaType],
-        decease: this.data.deceases[area],
+        // disease: this.diseases[areaType],
+        disease: this.data.diseases[area],
       },
       autoFocus: false,
     });
   }
 
   onSubmit() {
-    this.listDialogRef.close(this.data);
+    let isCompleted = true
+    this.data.areas.forEach(disease => {
+      if (this.data.diseases[disease].severity === 0) {
+        isCompleted = false
+      }
+    });
+    if (isCompleted) {
+      this.listDialogRef.close(this.data);
+    } else {
+      console.log("Not completed")
+    }
+    
   }
 }

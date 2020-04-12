@@ -1,6 +1,6 @@
 // Input data for the single page dialog
 export interface DialogData {
-  decease: {
+  disease: {
     name: string;
     imageUrl: string;
     iconUrl: string;
@@ -11,7 +11,7 @@ export interface DialogData {
 // Input data for the list dialog
 export interface ListDialogData {
   areas: string[];
-  deceases: {};
+  diseases: {};
 }
 
 // receiving data from the previous route
@@ -21,7 +21,7 @@ export interface PostData {
   is_member_visited_foreign_country: string;
   age: string;
   gender: string;
-  deceases: {
+  diseases: {
     name: string;
     severity: string;
   }[];
