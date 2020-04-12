@@ -50,7 +50,7 @@ export class LandingComponent implements OnInit {
   ];
 
   dataForm = new FormGroup({
-    noOfFamily: new FormControl("", Validators.required),
+    noOfFamily: new FormControl("", [Validators.required, this.numberOnly]),
     foreignContact: new FormControl("", Validators.required),
     closeContact: new FormControl("", Validators.required),
     gender: new FormControl("", Validators.required),
@@ -122,11 +122,33 @@ export class LandingComponent implements OnInit {
 
   // numberOnly(control: AbstractControl): {[key:string]:boolean} | null {
   //   const inputString = String.fromCharCode(control.value);
-  //   if (inputString && !String(inputString).match('^[0,9]*$')) {
-      
+  //   const regex: RegExp = new RegExp(/^[0-9]+([0-9]*){0,1}$/g)
+  //   if (inputString && !String(inputString).match(regex)) {
+  //     alert(!String(inputString))
   //     return {"chaNotAllowed":true};
   //   }
   //   else
   //   return null 
+  // }
+
+  numberOnly(event: AbstractControl): {[key:string]:boolean}| null {
+    const inp = event.value ? event.value : event.value;
+    if (isNaN(inp)) { 
+      console.log("error cha present")
+      return {notNumbers:true};
+      
+    }
+    else{
+      return null;
+    }
+   
+  }
+
+  
+  // forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+  //   return (control: AbstractControl): {[key: string]: any} | null => {
+  //     const forbidden = nameRe.test(control.value);
+  //     return forbidden ? {'forbiddenName': {value: control.value}} : null;
+  //   };
   // }
 }

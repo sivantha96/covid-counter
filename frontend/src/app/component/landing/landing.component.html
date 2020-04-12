@@ -3,8 +3,8 @@
         <mat-card class="col-12 col-md-6 col-sm-6 card-container">
             <div class="justify-content-center">
                 <div class="header-container">
-                    <mat-card-title>COVID-19</mat-card-title>
-                    <mat-card-subtitle>Fill all the details to continue</mat-card-subtitle>
+                    <!-- <mat-card-title>COVID-19</mat-card-title>
+                    <mat-card-subtitle>Fill all the details to continue</mat-card-subtitle> -->
                 </div>
                 <mat-horizontal-stepper linear='true'>
                     <mat-card-content>
@@ -106,9 +106,22 @@
                                 </div>
                                 <mat-form-field class="field-container" style="width:60%">
                                     <label>How many family members in your family?</label>
-                                    <input matInput formControlName="noOfFamily" placeholder="" NumberOnly>
-                                    <mat-error>This field is required</mat-error>
-                                    <mat-hint>enter the number</mat-hint>
+                                    <input  matInput formControlName="noOfFamily"  placeholder="">
+                                    
+                                        <mat-hint>enter a number</mat-hint>
+  
+                                        <mat-error *ngIf="dataForm.get('noOfFamily').invalid && (dataForm.get('noOfFamily').dirty || dataForm.get('noOfFamily').touched)  && (dataForm.get('noOfFamily').errors.required)">
+                                            this field is required
+                                        </mat-error>
+                                        <mat-error *ngIf="dataForm.get('noOfFamily').invalid && (dataForm.get('noOfFamily').dirty || dataForm.get('noOfFamily').touched)  && (dataForm.get('noOfFamily').errors.numberOnly)">
+                                            please enter a nummeric value
+                                        </mat-error>
+                                 
+                                    
+
+                                    <!-- <mat-error>This field is required</mat-error> -->
+                                    
+                                    
                                 </mat-form-field>
                                 <mat-card-actions class="button-container">
                                     <button type="button" mat-button matStepperPrevious
@@ -124,7 +137,7 @@
                                     <img src="../../../assets/landing/familyAbroad.jpg" alt="">
                                 </div>
                                 <div class="field-container">
-                                    <label>You or any of your family members recently travelled overseas ?</label>
+                                    <label>You or any of your family member recently travelled overseas ?</label>
                                     <mat-radio-group aria-labelledby="example-radio-group-label"
                                         class="example-radio-group" formControlName="foreignContact">
                                         <mat-radio-button class="example-radio-button" *ngFor="let ans of booleanGroups"
