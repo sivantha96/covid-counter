@@ -23,7 +23,9 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatChipsModule } from "@angular/material/chips";
-
+import { WelcomeComponent } from "./component/page/welcome/welcome.component";
+import { ThankYouComponent } from "./component/page/thank-you/thank-you.component";
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { MatChipsModule } from "@angular/material/chips";
     FigureComponent,
     FigureComponentDialog,
     FigureComponentListDialog,
+    WelcomeComponent,
+    ThankYouComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,8 @@ import { MatChipsModule } from "@angular/material/chips";
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
-    MatChipsModule
+    MatChipsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
