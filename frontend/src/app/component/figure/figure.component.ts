@@ -1,55 +1,63 @@
-import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Component, OnInit, Inject, Pipe } from "@angular/core";
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from "@angular/material/dialog";
-import { DialogData, ListDialogData, PostData } from "src/app/model/figure";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PostData, AlertOptions } from "src/app/model/figure";
 import { UserInfoService } from "src/app/service/user-info.service";
+import { AlertService } from "src/app/modules/_alert";
+import { FigureComponentDialog } from "./figure.component.dialog";
+import { FigureComponentListDialog } from "./figure.component.list.dialog";
 
 declare var $: any;
 
-// figure
 @Component({
   selector: "app-figure",
   templateUrl: "./figure.component.html",
   styleUrls: ["./figure.component.css"],
 })
 export class FigureComponent implements OnInit {
-  diseases = {
-    cold: {
-      name: "Cold",
-      imageUrl: "../../../assets/figure/cold.jpg",
-      iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0,
-    },
-    soreThroat: {
-      name: "Sore Throat",
-      imageUrl: "../../../assets/figure/sore.jpg",
-      iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0,
-    },
-    cough: {
-      name: "Cough",
-      imageUrl: "../../../assets/figure/cough.jpg",
-      iconUrl: "../../../assets/figure/icon.jpg",
-      severity: 0,
-    },
-  };
+  diseases: any;
   postData: PostData;
-  scriptUrl = "assets/js/onChangeWindow.js";
-  showMan: boolean = true;
-  symptomsArray: string[] = ["cold", "soreThroat", "cough"];
-  noOfSymptoms:number 
+  scriptUrl: string;
+  showMan: boolean;
+  symptomsArray: string[];
+  noOfSymptoms: number;
+  alertOptions: AlertOptions;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private userInfoService: UserInfoService
+    private userInfoService: UserInfoService,
+    protected alertService: AlertService
   ) {
+    this.scriptUrl = "assets/js/onChangeWindow.js";
+    this.showMan = true;
+    this.symptomsArray = ["cold", "soreThroat", "cough"];
     this.noOfSymptoms = this.symptomsArray.length;
+    this.alertOptions = {
+      autoClose: true,
+      id: "main-submit",
+    };
+    this.diseases = {
+      cold: {
+        name: "Cold",
+        imageUrl: "../../../assets/figure/cold.jpg",
+        iconUrl: "../../../assets/figure/icon.jpg",
+        severity: 0,
+      },
+      soreThroat: {
+        name: "Sore Throat",
+        imageUrl: "../../../assets/figure/sore.jpg",
+        iconUrl: "../../../assets/figure/icon.jpg",
+        severity: 0,
+      },
+      cough: {
+        name: "Cough",
+        imageUrl: "../../../assets/figure/cough.jpg",
+        iconUrl: "../../../assets/figure/icon.jpg",
+        severity: 0,
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -158,97 +166,11 @@ export class FigureComponent implements OnInit {
 
   onSubmitMain() {
     if (this.noOfSymptoms === this.postData.diseases.length) {
-      console.log("completed")
-      console.log(this.postData)
-    }
-    else {
-      console.log("Not completed")
-    }
-    // this.userInfoService.postInfo(this.postData).subscribe((res) => {
-    //   console.log(res);
-    // });
-  }
-}
-
-// single page dialog
-@Component({
-  selector: "app-figure-dialog",
-  templateUrl: "./figure.component.dialog.html",
-})
-export class FigureComponentDialog {
-  userNotResponded: boolean;
-  constructor(
-    public dialogRef: MatDialogRef<FigureComponentDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {
-    dialogRef.disableClose = true;
-    this.userNotResponded = data.disease.severity === 0;
-  }
-
-  onFocus(num) {
-    switch (num) {
-      case 1:
-        this.data.disease.severity = 1;
-        this.userNotResponded = false;
-        break;
-
-      case 2:
-        this.data.disease.severity = 2;
-        this.userNotResponded = false;
-        break;
-
-      case 3:
-        this.data.disease.severity = 3;
-        this.userNotResponded = false;
-        break;
-    }
-  }
-
-  isSelected(chip) {
-    return chip === this.data.disease.severity;
-  }
-}
-
-// list dialog
-@Component({
-  selector: "app-figure-list-dialog",
-  templateUrl: "./figure.component.list.dialog.html",
-  styleUrls: ["./figure.component.css"],
-})
-export class FigureComponentListDialog {
-  constructor(
-    public dialog: MatDialog,
-    public listDialogRef: MatDialogRef<FigureComponentListDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: ListDialogData
-  ) {
-    listDialogRef.disableClose = true;
-  }
-
-  handleClick(area) {
-    const dialogRef = this.dialog.open(FigureComponentDialog, {
-      width: "90vh",
-      height: "none",
-      maxHeight: "90vh",
-      data: {
-        // disease: this.diseases[areaType],
-        disease: this.data.diseases[area],
-      },
-      autoFocus: false,
-    });
-  }
-
-  onSubmit() {
-    let isCompleted = true
-    this.data.areas.forEach(disease => {
-      if (this.data.diseases[disease].severity === 0) {
-        isCompleted = false
-      }
-    });
-    if (isCompleted) {
-      this.listDialogRef.close(this.data);
+      this.userInfoService.postInfo(this.postData).subscribe((res) => {
+        console.log(res);
+      });
     } else {
-      console.log("Not completed")
+      this.alertService.warn("Not completed", this.alertOptions);
     }
-    
   }
 }

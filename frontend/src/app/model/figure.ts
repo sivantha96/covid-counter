@@ -26,3 +26,9 @@ export interface PostData {
     severity: string;
   }[];
 }
+
+// options for alert service
+export interface AlertOptions {
+  autoClose: boolean;
+  id: string;
+}
