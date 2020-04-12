@@ -119,16 +119,15 @@
                             </mat-step>
 
                             <!-- youForeign -->
-                            <mat-step [stepControl]="dataForm.get('youForeign')" >
+                            <mat-step [stepControl]="dataForm.get('foreignContact')" >
                                 <div class="image-container">
-                                    <img src="../../../assets/landing/maleAbroad.jpg" *ngIf="isGender()" alt="">
-                                    <img src="../../../assets/landing/femaleAbroad.jpg" *ngIf="!isGender()" alt="">
+                                    <img src="../../../assets/landing/familyAbroad.jpg" alt="">
                                 </div>
                                 <div class="field-container">
-                                    <label>Have you recently travelled overseas?</label>
+                                    <label>You or any of your family members recently travelled overseas ?</label>
                                     <mat-radio-group aria-labelledby="example-radio-group-label"
-                                        class="example-radio-group" formControlName="youForeign">
-                                        <mat-radio-button class="example-radio-button" *ngFor="let ans of foreignGroups"
+                                        class="example-radio-group" formControlName="foreignContact">
+                                        <mat-radio-button class="example-radio-button" *ngFor="let ans of booleanGroups"
                                             [value]="ans.value">
                                             {{ans.viewValue}}
                                         </mat-radio-button>
@@ -137,21 +136,22 @@
                                 <mat-card-actions class="button-container">
                                     <button type="button" mat-button matStepperPrevious
                                         class="btn btn-secondary btn-sm button-style">Previous</button>
-                                    <button type="button"  [disabled]="!dataForm.get('youForeign').valid" class="btn btn-secondary btn-sm button-style" mat-button
+                                    <button type="button"  [disabled]="!dataForm.get('foreignContact').valid" class="btn btn-secondary btn-sm button-style" mat-button
                                         matStepperNext>Continue</button>
                                 </mat-card-actions>
                             </mat-step>
 
                             <!-- familyForeign -->
-                            <mat-step [stepControl]="dataForm.get('familyForeign')" >
+                            <mat-step [stepControl]="dataForm.get('closeContact')" >
                                 <div class="image-container">
-                                    <img src="../../../assets/landing/familyAbroad.jpg" alt="">
+                                    <img src="../../../assets/landing/maleAbroad.jpg" *ngIf="isGender()" alt="">
+                                    <img src="../../../assets/landing/femaleAbroad.jpg" *ngIf="!isGender()" alt="">
                                 </div>
                                 <div class="field-container">
-                                    <label>Family members recently travelled overseas?</label>
+                                    <label>Have you had any close contact with COVID 19 patient?</label>
                                     <mat-radio-group aria-labelledby="example-radio-group-label"
-                                        class="example-radio-group" formControlName="familyForeign">
-                                        <mat-radio-button class="example-radio-button" *ngFor="let ans of foreignGroups"
+                                        class="example-radio-group" formControlName="closeContact">
+                                        <mat-radio-button class="example-radio-button" *ngFor="let ans of booleanGroups"
                                             [value]="ans.value">
                                             {{ans.viewValue}}
                                         </mat-radio-button>
@@ -161,7 +161,7 @@
                                     <button type="button" mat-button matStepperPrevious
                                         class="btn btn-secondary btn-sm button-style">Previous</button>
                                     <button type="button" type="submit" class="btn btn-secondary btn-sm button-style"
-                                    [disabled]="!dataForm.get('familyForeign').valid" type="submit" (click)="onFormSubmit()" mat-raised-button matSteppeNext>Continue</button>
+                                    [disabled]="!dataForm.get('closeContact').valid" type="submit" (click)="onFormSubmit()" mat-raised-button matSteppeNext>Continue</button>
                                 </mat-card-actions>
                             </mat-step>
                         </form>

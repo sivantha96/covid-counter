@@ -8,7 +8,7 @@ interface IAge {
   viewValue: string;
 }
 
-interface IForeign {
+interface IBoolean {
   value: string;
   viewValue: string;
 }
@@ -16,7 +16,7 @@ interface IForeign {
 interface IPostData{
   family_members:number,
   is_visited_foreign_country:string,
-  is_member_visited_foreign_country:string,
+  is_had_close_contact:string,
   age:string,
   gender:string
 }
@@ -44,15 +44,15 @@ export class LandingComponent implements OnInit {
   ];
 
   //options recently aboard
-  foreignGroups: IForeign[] = [
+  booleanGroups: IBoolean[] = [
     { value: "Yes", viewValue: "Yes" },
     { value: "No", viewValue: "No" },
   ];
 
   dataForm = new FormGroup({
     noOfFamily: new FormControl("", Validators.required),
-    youForeign: new FormControl("", Validators.required),
-    familyForeign: new FormControl("", Validators.required),
+    foreignContact: new FormControl("", Validators.required),
+    closeContact: new FormControl("", Validators.required),
     gender: new FormControl("", Validators.required),
     age: new FormControl("", Validators.required),
   });
@@ -79,12 +79,12 @@ export class LandingComponent implements OnInit {
     return this.dataForm.get("noOfFamily").value==null ? true :false
   }
 
-  isEmptyYouForeign():boolean{
-    return this.dataForm.get("youForeign").value==null ? true :false
+  isEmptyforeignContact():boolean{
+    return this.dataForm.get("foreignContact").value==null ? true :false
   }
 
-  isEmptyFamilyForeign():boolean{
-    return this.dataForm.get("familyForeign").value==null ? true :false
+  isEmptycloseContact():boolean{
+    return this.dataForm.get("closeContact").value==null ? true :false
   }
 
   
@@ -106,8 +106,8 @@ export class LandingComponent implements OnInit {
       gender: submitData.gender,
       age: submitData.age,
       family_members: submitData.noOfFamily,
-      is_visited_foreign_country: submitData.youForeign,
-      is_member_visited_foreign_country: submitData.familyForeign,
+      is_visited_foreign_country: submitData.foreignContact,
+      is_had_close_contact: submitData.closeContact,
     };
 
     this.router.navigate(["./figure"], {
