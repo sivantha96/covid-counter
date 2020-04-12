@@ -40,7 +40,7 @@
 .form-container {
   
   text-align: center;
-  width: 45%;
+  width: 40%;
   height: 80%;
 
 }
@@ -48,8 +48,8 @@
 .card-container {
  
 
-  top: 10vh;
-  padding: 3%;
+  top: 5vh;
+  padding: 1%;
   /* border-radius: 5px; */
   box-shadow: 0px 0px 5px 0px #000;
   text-align: center;
@@ -88,8 +88,8 @@
 
 .image-container img{
   justify-content: center;
-  height: 10rem;
-  width: 15rem;
+  height: 12rem;
+  width: 16rem;
 }
 
 .header-container{

@@ -1,6 +1,6 @@
 import { Router, ActivatedRoute } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { FormControl, Validators, FormGroup, AbstractControl } from "@angular/forms";
 import { ILandingdata } from "./landing-data.model";
 
 interface IAge {
@@ -8,7 +8,7 @@ interface IAge {
   viewValue: string;
 }
 
-interface IForeign {
+interface IBoolean {
   value: string;
   viewValue: string;
 }
@@ -16,7 +16,7 @@ interface IForeign {
 interface IPostData{
   family_members:number,
   is_visited_foreign_country:string,
-  is_member_visited_foreign_country:string,
+  is_had_close_contact:string,
   age:string,
   gender:string
 }
@@ -27,11 +27,14 @@ interface IPostData{
   styleUrls: ["./landing.component.css"],
 })
 export class LandingComponent implements OnInit {
-  Gender: string;
+  
 
   isOptional=false;
 
+  //options gender
   gender: string[] = ["Female", "Male"];
+
+  //options age groups
   ageGroups: IAge[] = [
     { value: "0", viewValue: "Infant (0-5 Years)" },
     { value: "1", viewValue: "child (5-18 Years)" },
@@ -40,15 +43,16 @@ export class LandingComponent implements OnInit {
     { value: "5", viewValue: "Old (Above 60 Years)" },
   ];
 
-  foreignGroups: IForeign[] = [
+  //options recently aboard
+  booleanGroups: IBoolean[] = [
     { value: "Yes", viewValue: "Yes" },
     { value: "No", viewValue: "No" },
   ];
 
   dataForm = new FormGroup({
-    noOfFamily: new FormControl("", Validators.required),
-    youForeign: new FormControl("", Validators.required),
-    familyForeign: new FormControl("", Validators.required),
+    noOfFamily: new FormControl("", [Validators.required, this.numberOnly]),
+    foreignContact: new FormControl("", Validators.required),
+    closeContact: new FormControl("", Validators.required),
     gender: new FormControl("", Validators.required),
     age: new FormControl("", Validators.required),
   });
@@ -61,6 +65,38 @@ export class LandingComponent implements OnInit {
 
   constructor(private router: Router, activatedRoute: ActivatedRoute) {}
 
+  //IsEmpty's
+  isEmptyAge():boolean{
+    return this.dataForm.get("age")==undefined ? false :true
+  }
+
+  isEmptyGender:boolean=this.dataForm.get('gender').value==null ? true :false
+    
+    
+  
+
+  isEmptyNoOfFamily():boolean{
+    return this.dataForm.get("noOfFamily").value==null ? true :false
+  }
+
+  isEmptyforeignContact():boolean{
+    return this.dataForm.get("foreignContact").value==null ? true :false
+  }
+
+  isEmptycloseContact():boolean{
+    return this.dataForm.get("closeContact").value==null ? true :false
+  }
+
+  
+
+  
+
+  
+
+
+
+
+
   ngOnInit(): void {}
 
   onFormSubmit(): void {
@@ -70,8 +106,8 @@ export class LandingComponent implements OnInit {
       gender: submitData.gender,
       age: submitData.age,
       family_members: submitData.noOfFamily,
-      is_visited_foreign_country: submitData.youForeign,
-      is_member_visited_foreign_country: submitData.familyForeign,
+      is_visited_foreign_country: submitData.foreignContact,
+      is_had_close_contact: submitData.closeContact,
     };
 
     this.router.navigate(["./figure"], {
@@ -81,11 +117,38 @@ export class LandingComponent implements OnInit {
     });
   }
 
-  numberOnly(event): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
+  //custom validation
+
+
+  // numberOnly(control: AbstractControl): {[key:string]:boolean} | null {
+  //   const inputString = String.fromCharCode(control.value);
+  //   const regex: RegExp = new RegExp(/^[0-9]+([0-9]*){0,1}$/g)
+  //   if (inputString && !String(inputString).match(regex)) {
+  //     alert(!String(inputString))
+  //     return {"chaNotAllowed":true};
+  //   }
+  //   else
+  //   return null 
+  // }
+
+  numberOnly(event: AbstractControl): {[key:string]:boolean}| null {
+    const inp = event.value ? event.value : event.value;
+    if (isNaN(inp)) { 
+      console.log("error cha present")
+      return {notNumbers:true};
+      
     }
-    return true;
+    else{
+      return null;
+    }
+   
   }
+
+  
+  // forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+  //   return (control: AbstractControl): {[key: string]: any} | null => {
+  //     const forbidden = nameRe.test(control.value);
+  //     return forbidden ? {'forbiddenName': {value: control.value}} : null;
+  //   };
+  // }
 }
