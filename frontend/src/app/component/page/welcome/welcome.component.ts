@@ -14,7 +14,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   onClick() {
-    this.router.navigate(["./figure"])
+    this.router.navigate(["./landing"])
   }
 
 }
