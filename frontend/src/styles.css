@@ -1,4 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-grid-tile .mat-figure {
+  text-align: center !important;
+}
+
+.mat-chip-list-wrapper {
+  display: block !important;
+}
+
+.mat-chip {
+  font-size: 3vmin !important;
+}
+
+.mat-typography h2 {
+  font: 500 3vmin/4vmin Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 16px;
+}
+
+.mat-standard-chip {
+    border-radius: 5vmin !important;
+    height: 8vmin !important;
+    justify-content: center !important;
+    min-height: 0px !important;
+}
+
+.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip {
+    width: 80% !important;
+}
+
+.cdk-overlay-pane{
+  height: none !important;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-accent {
+  background-color: #00c317 !important;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+  background-color: #ecb200 !important;
+}
+
+ul {
+  list-style-type: none;
+}
+li a:hover, li a.hover {
+  color:red;
+}

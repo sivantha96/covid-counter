@@ -1,8 +1,93 @@
-.img-fluid {
-  max-height: 100vh;
+.img-human {
+  display: block;
+  height: 100%;
+  width: auto;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+@keyframes glowing {
+  0% {
+    color: #2ba805;
+    box-shadow: 0 0 5px #2ba805;
+  }
+  50% {
+    color: #49e819;
+    box-shadow: 0 0 20px #49e819;
+  }
+  100% {
+    color: #2ba805;
+    box-shadow: 0 0 5px #2ba805;
+  }
+}
+
+.button-container {
+  align-items: center;
+  text-align: center;
+}
+
+.spacer {
+  width: 3%;
+}
+
+.text-card {
+  font-size: 3.5vmin;
+}
+
+.map-area {
+  background: #fff;
+  display: block;
+  opacity: 0;
+  animation: glowing 1300ms infinite;
+  cursor: pointer;
+}
+
+#area1:hover {
+  border: 10px solid red;
+  box-shadow: 0 0px 5px darkgray;
+}
+
+.image-card {
+  max-height: 10em;
+}
+
+.mat-card-title-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.carder {
+  height: 90%;
+  flex: 1;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.mapster_el {
+  height: 20%;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }

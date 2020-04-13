@@ -27,7 +27,13 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/js/onChangeWindow.js",
+              "src/app/component/mapster/coordinateTransform.js",
+              "src/app/component/mapster/jquery.imagemapster.min.js"
+            ]
           },
           "configurations": {
             "production": {

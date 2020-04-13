@@ -1,13 +1,43 @@
-<div class="container">
-    <div class="row vh-100">
-        <div class="col h-100">
+<div class="container" style="height: 90vh; background: url(../../../../../assets/figure/white.jpg)">
+    <div class="row" style="height: 80%;">
+        <div class="col ">
             <ng-container *ngIf="showMan">
-                <img class="img-fluid m-auto d-block" src="../../../assets/man.jpg">
+                <div>
+                    <img id="manImage" class="img-human m-auto d-block" src="../../../assets/figure/man.jpg"
+                        usemap="#mapMan" alt>
+                    <map name="mapMan">
+                        <area class="map-area" shape="circle" coords="234,411,235" (click)="handleClick('head')">
+                        <area class="map-area" shape="circle" coords="248,1081,249" (click)="handleClick('soreThroat')">
+                        <area class="map-area" shape="circle" coords="249,1764,250" (click)="handleClick('cough')">
+                        <area class="map-area" shape="circle" coords="261,2405,263" (click)="handleClick('cold')">
+                    </map>
+                </div>
             </ng-container>
             <ng-container *ngIf="!showMan">
-                <img class="img-fluid m-auto d-block" src="../../../assets/woman.jpg">
+                <div>
+                    <img class="img-human m-auto d-block" src="../../../assets/figure/woman.jpg" usemap="#mapWoman" alt>
+                    <map name="mapWoman">
+                        <area class="map-area" shape="circle" coords="248,410,247" (click)="handleClick('head')">
+                        <area class="map-area" shape="circle" coords="246,1084,247" (click)="handleClick('soreThroat')">
+                        <area class="map-area" shape="circle" coords="249,1756,248" (click)="handleClick('cough')">
+                        <area class="map-area" shape="circle" coords="249,2434,249" (click)="handleClick('cold')">
+                    </map>
+                </div>
             </ng-container>
-            <img>
+            <script>
+                // $('img').mapster();
+                $('map').imageMapResize();
+                // $('#manImage').mapster({
+                //     fillColor: 'ff0000',
+                //     fillOpacity: 0.3
+                // });
+            </script>
+        </div>
+    </div>
+    <div class="row " style="height: 10%;">
+        <div class="col button-container ">
+            <alert id="main-submit" fade></alert>
+            <button type="Button" class="btn btn-primary btn-lg w-75 rounded-pill" (click)=onSubmitMain()>Submit</button>
         </div>
     </div>
 </div>
