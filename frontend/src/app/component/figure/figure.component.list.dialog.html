@@ -1,16 +1,16 @@
 <div>
     <mat-grid-list gutterSize="5" cols="1" rowHeight="4:1">
         <mat-grid-tile *ngFor="let area of data.areas">
-            <div matRipple class="card" (click)="handleClick(area)" style="flex: 1; height: 100%; cursor: pointer; ">
+            <div matRipple class="card" (click)="handleClick(area)"
+                style="flex: 1; height: 100%; cursor: pointer; border: 2ew">
                 <div class="row" style=" background: url(../../../../../assets/figure/white.jpg)">
                     <div class="col-4" style="text-align: center; padding-top: 2vmin;">
                         <img width="100%" [src]="data.diseases[area].iconUrl">
                     </div>
                     <div class="col-8">
-                        <div class="row" style="padding-left:5%; padding-top: 15%;">
-                            <h1 class="text-card"> {{ data.diseases[area].name }} </h1>
+                        <div style="text-align: left; padding-top: 10%;">
+                            <h1 class="text-card" style="margin-bottom: 0!important; margin-block-end: 0!important; line-height: 1em;"> {{ data.diseases[area].name }} </h1>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -18,9 +18,9 @@
 
     </mat-grid-list>
 </div>
-<div class="row ">
+<div class="row my-2">
     <div class="col button-container py-2">
         <alert id="dialog-submit"></alert>
-    <button type="Button" class="btn btn-primary btn-md w-75 rounded-pill" (click)="onSubmit()">Submit</button>
+        <button type="Button" class="btn btn-primary btn-md w-75 rounded-pill" (click)="onSubmit()">Submit</button>
     </div>
 </div>

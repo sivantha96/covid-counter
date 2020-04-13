@@ -24,7 +24,6 @@
   }
 }
 
-
 .button-container {
   align-items: center;
   text-align: center;
@@ -36,18 +35,17 @@
 
 .text-card {
   font-size: 3.5vmin;
-  vertical-align: middle;
 }
 
 .map-area {
-  background:#fff;
-  display:block;
-  opacity:0;
+  background: #fff;
+  display: block;
+  opacity: 0;
   animation: glowing 1300ms infinite;
   cursor: pointer;
 }
 
-#area1:hover{
+#area1:hover {
   border: 10px solid red;
   box-shadow: 0 0px 5px darkgray;
 }
@@ -84,12 +82,12 @@
   left: 50%;
 }
 
-.col {
-  align-items: center;
-  justify-content: center;
-}
-
 .mapster_el {
   height: 20%;
 }
 
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
